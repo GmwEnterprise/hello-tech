@@ -1,0 +1,63 @@
+{
+  "name": "file-explorer",
+  "version": "1.0.1",
+  "description": "An Electron File Explorer created with Quasar",
+  "productName": "File Explorer",
+  "cordovaId": "org.cordova.quasar.app",
+  "author": "Jeff Galbraith <jeff.galbraith@xendra.com>",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.vue src",
+    "lint-fix": "eslint --ext .js,.vue src --fix",
+    "dev": "quasar dev -m electron -t mat",
+    "build": "quasar build -m electron -t mat",
+    "build-linux": "quasar build -m electron linux -t mat -b builder",
+    "build-win32": "quasar build -m electron win32 -t mat -b builder",
+    "build-mac": "quasar build -m electron mac -t mat -b builder",
+    "electron-toolkit": "electron ./node_modules/electron-toolkit",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "chokidar": "^3.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mime-types": "^2.1.24",
+    "moment": "^2.24.0",
+    "pretty-bytes": "^5.2.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "devtron": "^1.4.0",
+    "electron": "^3.0.0",
+    "electron-builder": "^20.29.0",
+    "electron-debug": "^1.5.0",
+    "electron-devtools-installer": "^2.2.4",
+    "electron-packager": "^12.2.0",
+    "electron-toolkit": "^1.0.24",
+    "eslint": "^4.18.2",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-vue": "^4.3.0",
+    "quasar-cli": "^0.17.26",
+    "strip-ansi": "=3.0.1",
+    "vue-loader": "^15.7.0"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ],
+  "peerDependencies": {
+    "vue-template-compiler": "^2.6.10"
+  }
+}

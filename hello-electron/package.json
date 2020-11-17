@@ -1,0 +1,14 @@
+{
+  "name": "hello-electron",
+  "version": "1.0.0",
+  "description": "electron demo",
+  "main": "main.js",
+  "author": "Mrag",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "9.3.1"
+  }
+}

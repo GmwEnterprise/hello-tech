@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ElectronApp</title>
+    <link rel="stylesheet" href="../assets/index.css" />
+  </head>
+  <body>
+    <button id="open-sub-window" onclick="openSubWindow()">子窗口</button>
+    <script>
+      const { BrowserWindow } = require("electron").remote;
+      const path = require("path");
+
+      // 在index.html中加载一个全局引用
+
+      const openSubWindow = () => {
+        // __dirname 指代当前html的目录
+        const url = path.join("file://", __dirname, "./sub-window.html");
+        let win = new BrowserWindow({
+          width: 400,
+          height: 300,
+        });
+        win.on("close", () => {
+          win = null;
+        });
+        win.loadURL(url);
+        win.show();
+      };
+    </script>
+  </body>
+</html>
