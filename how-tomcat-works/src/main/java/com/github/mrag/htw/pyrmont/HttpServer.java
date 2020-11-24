@@ -1,4 +1,4 @@
-package com.github.mrag.howtomcatworks.pyrmont;
+package com.github.mrag.htw.pyrmont;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,10 +8,13 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * 实现一个简单的单线程http静态服务器
+ */
 public class HttpServer {
 
-    private static final String WEB_ROOT = System.getProperty("user.dir") + File.separator + "webroot";
-    private static final String SHUTDOWN_COMMAND = "/shutdown";
+    public static final String WEB_ROOT = System.getProperty("user.dir") + File.separator + "webroot";
+    public static final String SHUTDOWN_COMMAND = "/shutdown";
 
     private boolean shutdown = false;
 
@@ -54,10 +57,9 @@ public class HttpServer {
                 socket.close();
 
                 // check if the previous URI is a shutdown command
-                shutdown = request.getUri().equals(SHUTDOWN_COMMAND);
+                shutdown = SHUTDOWN_COMMAND.equals(request.getUri());
             } catch (Exception e) {
                 e.printStackTrace();
-                continue;
             }
         }
     }
