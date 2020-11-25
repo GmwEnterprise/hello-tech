@@ -21,7 +21,7 @@ public class PrimitiveServlet implements Servlet {
         PrintWriter writer = res.getWriter();
         writer.println("Hello. Roses are red.");
         writer.print("Violets are blue.");
-        writer.flush();
+        // writer.flush();
     }
 
     @Override
