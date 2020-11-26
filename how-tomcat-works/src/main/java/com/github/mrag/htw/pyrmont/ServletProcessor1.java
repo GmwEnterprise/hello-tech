@@ -23,7 +23,8 @@ public class ServletProcessor1 {
                     new File(Constants.WEB_ROOT).getCanonicalPath() + File.separator).toString();
             // (null, repository, null)的写法会使编译器无法确定到底使用哪一个构造函数
             // 书中写法为提前声明一个URLStreamHandler的引用，但不赋值
-            loader = new URLClassLoader(Tools.array(new URL(null, repository, ((URLStreamHandler) null))));
+            URL[] urls = Tools.array(new URL(null, repository, ((URLStreamHandler) null)));
+            loader = new URLClassLoader(urls);
         } catch (IOException e) {
             System.out.println(e.toString());
         }
