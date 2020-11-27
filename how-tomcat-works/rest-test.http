@@ -1,1 +1,15 @@
+### 关闭
+
+GET http://localhost:8080/close
+
+### 返回静态资源
+
 GET http://localhost:8080/index.html
+
+### 无法找到静态资源
+
+GET http://localhost:8080/index.jsp
+
+### 访问servlet
+
+GET http://localhost:8080/servlet/PrimitiveServlet
