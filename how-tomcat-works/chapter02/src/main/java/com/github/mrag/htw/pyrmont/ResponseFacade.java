@@ -19,11 +19,6 @@ public class ResponseFacade implements ServletResponse {
     }
 
     @Override
-    public String getContentType() {
-        return response.getContentType();
-    }
-
-    @Override
     public ServletOutputStream getOutputStream() throws IOException {
         return response.getOutputStream();
     }
@@ -34,18 +29,8 @@ public class ResponseFacade implements ServletResponse {
     }
 
     @Override
-    public void setCharacterEncoding(String charset) {
-        response.setCharacterEncoding(charset);
-    }
-
-    @Override
     public void setContentLength(int len) {
         response.setContentLength(len);
-    }
-
-    @Override
-    public void setContentLengthLong(long len) {
-        response.setContentLengthLong(len);
     }
 
     @Override

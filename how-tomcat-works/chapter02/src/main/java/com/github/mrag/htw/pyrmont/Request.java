@@ -1,6 +1,8 @@
 package com.github.mrag.htw.pyrmont;
 
-import javax.servlet.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,14 +56,13 @@ public class Request implements ServletRequest {
     }
 
     // 以下是来自接口定义的方法
-
     @Override
-    public Object getAttribute(String name) {
+    public Object getAttribute(String s) {
         return null;
     }
 
     @Override
-    public Enumeration<String> getAttributeNames() {
+    public Enumeration getAttributeNames() {
         return null;
     }
 
@@ -71,17 +72,12 @@ public class Request implements ServletRequest {
     }
 
     @Override
-    public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
+    public void setCharacterEncoding(String s) throws UnsupportedEncodingException {
 
     }
 
     @Override
     public int getContentLength() {
-        return 0;
-    }
-
-    @Override
-    public long getContentLengthLong() {
         return 0;
     }
 
@@ -96,22 +92,22 @@ public class Request implements ServletRequest {
     }
 
     @Override
-    public String getParameter(String name) {
+    public String getParameter(String s) {
         return null;
     }
 
     @Override
-    public Enumeration<String> getParameterNames() {
+    public Enumeration getParameterNames() {
         return null;
     }
 
     @Override
-    public String[] getParameterValues(String name) {
+    public String[] getParameterValues(String s) {
         return new String[0];
     }
 
     @Override
-    public Map<String, String[]> getParameterMap() {
+    public Map getParameterMap() {
         return null;
     }
 
@@ -151,12 +147,12 @@ public class Request implements ServletRequest {
     }
 
     @Override
-    public void setAttribute(String name, Object o) {
+    public void setAttribute(String s, Object o) {
 
     }
 
     @Override
-    public void removeAttribute(String name) {
+    public void removeAttribute(String s) {
 
     }
 
@@ -166,7 +162,7 @@ public class Request implements ServletRequest {
     }
 
     @Override
-    public Enumeration<Locale> getLocales() {
+    public Enumeration getLocales() {
         return null;
     }
 
@@ -176,67 +172,12 @@ public class Request implements ServletRequest {
     }
 
     @Override
-    public RequestDispatcher getRequestDispatcher(String path) {
+    public RequestDispatcher getRequestDispatcher(String s) {
         return null;
     }
 
     @Override
-    public String getRealPath(String path) {
-        return null;
-    }
-
-    @Override
-    public int getRemotePort() {
-        return 0;
-    }
-
-    @Override
-    public String getLocalName() {
-        return null;
-    }
-
-    @Override
-    public String getLocalAddr() {
-        return null;
-    }
-
-    @Override
-    public int getLocalPort() {
-        return 0;
-    }
-
-    @Override
-    public ServletContext getServletContext() {
-        return null;
-    }
-
-    @Override
-    public AsyncContext startAsync() throws IllegalStateException {
-        return null;
-    }
-
-    @Override
-    public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse) throws IllegalStateException {
-        return null;
-    }
-
-    @Override
-    public boolean isAsyncStarted() {
-        return false;
-    }
-
-    @Override
-    public boolean isAsyncSupported() {
-        return false;
-    }
-
-    @Override
-    public AsyncContext getAsyncContext() {
-        return null;
-    }
-
-    @Override
-    public DispatcherType getDispatcherType() {
+    public String getRealPath(String s) {
         return null;
     }
 }

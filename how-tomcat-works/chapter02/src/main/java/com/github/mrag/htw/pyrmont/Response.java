@@ -66,27 +66,12 @@ public class Response implements ServletResponse {
     }
 
     @Override
-    public String getContentType() {
-        return null;
-    }
-
-    @Override
     public ServletOutputStream getOutputStream() throws IOException {
         return null;
     }
 
     @Override
-    public void setCharacterEncoding(String charset) {
-
-    }
-
-    @Override
     public void setContentLength(int len) {
-
-    }
-
-    @Override
-    public void setContentLengthLong(long len) {
 
     }
 
