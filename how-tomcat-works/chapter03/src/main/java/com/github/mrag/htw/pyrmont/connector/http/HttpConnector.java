@@ -21,8 +21,8 @@ public class HttpConnector implements Runnable {
 
     @Override
     public void run() {
-        ServerSocket ss = null;
-        int port = 8080;
+        ServerSocket ss   = null;
+        int          port = 8080;
         try {
             ss = new ServerSocket(port, 1, InetAddress.getByName("127.0.0.1"));
         } catch (IOException e) {

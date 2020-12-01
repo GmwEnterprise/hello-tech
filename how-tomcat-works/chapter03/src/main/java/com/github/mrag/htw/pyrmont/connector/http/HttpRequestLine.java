@@ -1,5 +1,8 @@
 package com.github.mrag.htw.pyrmont.connector.http;
 
+/**
+ * 支持重复读取的请求行封装
+ */
 final class HttpRequestLine {
     // 初始 method 长度
     public static final int INITIAL_METHOD_SIZE = 8;
@@ -46,29 +49,31 @@ final class HttpRequestLine {
     }
 
     // 测试 URI 中是否包含给定字符数组
-    public int indexOf(char[] buf, int end) {
-
-    }
-
-    public static void main(String[] args) {
-        HttpRequestLine line = new HttpRequestLine();
-        line.uri    = "Hello world !".toCharArray();
-        line.uriEnd = line.uri.length;
-
-        char[] buf = "lo w".toCharArray();
-        int end = line.indexOf(buf, buf.length);
-
-        if (end != -1) {
-            int start = end - buf.length;
-            for (int idx = 0; idx < line.uriEnd; idx++) {
-                if (idx == start) {
-                    System.out.print("__[");
-                }
-                System.out.print(line.uri[idx]);
-                if (idx == end - 1) {
-                    System.out.print("]__");
+    // 若匹配，则返回子串在uri中的第一个下标；否则返回-1
+    public int indexOfUri(char[] buf, int end) {
+        int pos = 0;
+        int limit = uriEnd - end + 1;
+        while (pos < limit) {
+            boolean matches = true;
+            for (int i = 0; i < end; i++) {
+                if (uri[pos + i] != buf[i]) {
+                    pos++;
+                    matches = false;
+                    break;
                 }
             }
+            if (matches) {
+                return pos;
+            }
         }
+        return -1;
+    }
+
+    public int indexOfUri(char[] buf) {
+        return indexOfUri(buf, buf.length);
+    }
+
+    public int indexOfUri(String str) {
+        return indexOfUri(str.toCharArray(), str.length());
     }
 }
