@@ -27,11 +27,11 @@ final class HttpRequestLine {
     public HttpRequestLine(char[] method, int methodEnd,
                            char[] uri, int uriEnd,
                            char[] protocol, int protocolEnd) {
-        this.method      = method;
-        this.methodEnd   = methodEnd;
-        this.uri         = uri;
-        this.uriEnd      = uriEnd;
-        this.protocol    = protocol;
+        this.method = method;
+        this.methodEnd = methodEnd;
+        this.uri = uri;
+        this.uriEnd = uriEnd;
+        this.protocol = protocol;
         this.protocolEnd = protocolEnd;
     }
 
@@ -43,8 +43,8 @@ final class HttpRequestLine {
 
     // buffer 可重用
     public void recycle() {
-        methodEnd   = 0;
-        uriEnd      = 0;
+        methodEnd = 0;
+        uriEnd = 0;
         protocolEnd = 0;
     }
 
@@ -74,6 +74,7 @@ final class HttpRequestLine {
     }
 
     public int indexOfUri(String str) {
-        return indexOfUri(str.toCharArray(), str.length());
+        return indexOfUri(str.toCharArray(),
+                          str.length());
     }
 }
