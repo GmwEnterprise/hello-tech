@@ -9,11 +9,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
-import java.util.Enumeration;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class HttpRequest implements HttpServletRequest {
+
+    protected Map<String, String> headers = new HashMap<>();
+    protected List<Cookie> cookies = new ArrayList<>();
+    protected ParamaterMap paramaters = null;
+
+    public void setQueryString(String queryString) {
+    }
+
     @Override
     public String getAuthType() {
         return null;
@@ -21,7 +27,7 @@ public class HttpRequest implements HttpServletRequest {
 
     @Override
     public Cookie[] getCookies() {
-        return new Cookie[0];
+        return cookies.toArray(new Cookie[0]);
     }
 
     @Override
@@ -30,18 +36,32 @@ public class HttpRequest implements HttpServletRequest {
     }
 
     @Override
-    public String getHeader(String s) {
+    public String getHeader(String headerName) {
+        return headers.get(headerName);
+    }
+
+    @Override
+    public Enumeration<String> getHeaders(String s) {
         return null;
     }
 
     @Override
-    public Enumeration getHeaders(String s) {
-        return null;
-    }
+    public Enumeration<String> getHeaderNames() {
+        return new Enumeration<String>() {
+            private final List<String> headerList = new ArrayList<>(headers.keySet());
 
-    @Override
-    public Enumeration getHeaderNames() {
-        return null;
+            private int index = 0;
+
+            @Override
+            public boolean hasMoreElements() {
+                return index < headerList.size();
+            }
+
+            @Override
+            public String nextElement() {
+                return headerList.get(index++);
+            }
+        };
     }
 
     @Override
@@ -145,7 +165,7 @@ public class HttpRequest implements HttpServletRequest {
     }
 
     @Override
-    public Enumeration getAttributeNames() {
+    public Enumeration<String> getAttributeNames() {
         return null;
     }
 
@@ -180,7 +200,7 @@ public class HttpRequest implements HttpServletRequest {
     }
 
     @Override
-    public Enumeration getParameterNames() {
+    public Enumeration<String> getParameterNames() {
         return null;
     }
 
@@ -190,7 +210,7 @@ public class HttpRequest implements HttpServletRequest {
     }
 
     @Override
-    public Map getParameterMap() {
+    public Map<String, String[]> getParameterMap() {
         return null;
     }
 
@@ -245,7 +265,7 @@ public class HttpRequest implements HttpServletRequest {
     }
 
     @Override
-    public Enumeration getLocales() {
+    public Enumeration<Locale> getLocales() {
         return null;
     }
 

@@ -411,8 +411,7 @@ public class SocketInputStream extends InputStream {
                     // buffer
                     int val = read();
                     if (val == -1)
-                        throw new IOException
-                                (sm.getString("requestStream.readline.error"));
+                        throw new IOException(sm.getString("requestStream.readline.error"));
                     pos = 0;
                     readStart = 0;
                 }

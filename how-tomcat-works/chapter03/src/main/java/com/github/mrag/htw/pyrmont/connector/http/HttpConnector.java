@@ -21,8 +21,8 @@ public class HttpConnector implements Runnable {
 
     @Override
     public void run() {
-        ServerSocket ss   = null;
-        int          port = 8080;
+        ServerSocket ss = null;
+        int port = 8080;
         try {
             ss = new ServerSocket(port, 1, InetAddress.getByName("127.0.0.1"));
         } catch (IOException e) {
@@ -31,12 +31,13 @@ public class HttpConnector implements Runnable {
         }
 
         while (!stopped) {
-            Socket socket = null;
+            // 循环接收 tcp 请求
+            Socket socket;
             try {
                 // 等待http请求
                 socket = ss.accept();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("连接接收失败：" + e);
                 continue;
             }
             // 为每个请求创建一个HttpProcessor

@@ -31,6 +31,11 @@ public class SocketInputStream extends InputStream {
         this.buf = buf;
     }
 
+    public SocketInputStream(InputStream input, int bufSize) {
+        this(input, new byte[bufSize]);
+    }
+
+    // 读取一个字符，且 pos 指针后移一位
     @Override
     public int read() throws IOException {
         if (pos >= count) {
@@ -187,7 +192,121 @@ public class SocketInputStream extends InputStream {
         }
     }
 
+    // 填充一组请求头信息到HttpHeader的一个实例中
+    // 应该会调用多次，用以填充一个HttpHeader列表
     public void readHeader(HttpHeader header) throws IOException {
+        // 重置header
+        if (header.nameEnd != 0) {
+            header.recycle();
+        }
 
+        // 检测是否是换行符
+        // 如果是，就表明请求头读取结束
+        int ch = read();
+        if (ch == CR || ch == LF) {
+            if (ch == CR) read();
+            header.nameEnd = 0;
+            header.valueEnd = 0;
+            // 没有请求头 直接结束
+            // 此时pos指针已经跳过空行，指向请求体的第一个字节
+            return;
+        } else {
+            // 回退
+            pos--;
+        }
+
+        // 读name
+
+        int readCount = 0;
+        boolean colon = false;
+
+        while (!colon) {
+            // 检测扩容
+            if (readCount >= header.name.length) {
+                int newSize = header.name.length << 2;
+                header.name = extendArray(header.name, header.name.length,
+                                          newSize, HttpHeader.MAX_NAME_SIZE);
+            }
+
+            // buffer缓存刷新
+            if (pos >= count) {
+                if (read() == -1) throw new IOException(sm.getString("requestStream.readline.error"));
+                pos = 0;
+            }
+
+            // 检测结束符
+            if (buf[pos] == COLON) {
+                colon = true;
+            }
+
+            // 读取这个字符
+            char val = (char) buf[pos];
+            // 大小写转换
+            if (val >= 'A' && val <= 'Z') {
+                val -= LC_OFFSET;
+            }
+            header.name[readCount++] = val;
+            pos++;
+        }
+        header.nameEnd = readCount - 1;
+
+        // 读value，value可能为多行
+
+        readCount = 0;
+        // int crPos = -2;
+        boolean eol = false;
+
+        // boolean validLine = true;
+
+        // while (validLine) {
+
+        // 跳过空格、制表符
+        boolean space = true;
+        while (space) {
+            if (pos > count) {
+                if (read() == -1) throw new IOException(sm.getString("requestStream.readline.error"));
+                pos = 0;
+            }
+            if (buf[pos] == SP || buf[pos] == HT) {
+                pos++;
+            } else {
+                space = false;
+            }
+        }
+
+        // 读取当前行剩余字符
+        while (!eol) {
+            // 扩容
+            if (readCount >= header.value.length) {
+                header.value = extendArray(header.value, header.value.length,
+                                           header.value.length << 2, HttpHeader.MAX_VALUE_SIZE);
+            }
+
+            // buf刷新
+            if (pos > count) {
+                if (read() == -1) throw new IOException(sm.getString("requestStream.readline.error"));
+                pos = 0;
+            }
+
+            if (buf[pos] == CR) {
+                // 跳过回车符，下一个就是换行符 LF
+            } else if (buf[pos] == LF) {
+                eol = true;
+            } else {
+                header.value[readCount++] = (char) (buf[pos] & 0xff);
+            }
+            pos++;
+        }
+
+        // 源码中这里还有一个读取下一行第一个字符判断是不是空白符的操作
+        // 这里我省略了  因为http请求现在似乎不支持换行符后还有value续接
+        // }
+
+        header.valueEnd = readCount;
+    }
+
+    @Override
+    public int available() throws IOException {
+        return count - pos + input.available();
     }
 }
