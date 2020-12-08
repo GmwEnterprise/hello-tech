@@ -290,6 +290,8 @@ public class SocketInputStream extends InputStream {
 
                 if (buf[pos] == CR) {
                     // 跳过回车符，下一个就是换行符 LF
+                    pos++;
+                    continue;
                 } else if (buf[pos] == LF) {
                     eol = true;
                 } else {
@@ -314,7 +316,7 @@ public class SocketInputStream extends InputStream {
                     header.value = extendArray(header.value, header.value.length,
                                                header.value.length << 2, HttpHeader.MAX_VALUE_SIZE);
                 }
-                header.value[readCount++] = SP;
+                header.value[readCount++] = SP; // 添加空格
             }
         }
 

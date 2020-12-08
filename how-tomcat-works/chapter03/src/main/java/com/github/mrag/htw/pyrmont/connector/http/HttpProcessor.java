@@ -23,7 +23,7 @@ public class HttpProcessor {
             output = socket.getOutputStream();
 
             // 创建request对象
-            request = new HttpRequest();
+            request = new HttpRequest(input);
 
             // 创建response对象
             response = new HttpResponse();
@@ -53,7 +53,7 @@ public class HttpProcessor {
         input.readRequestLine(requestLine);
 
         String method = new String(requestLine.method, 0, requestLine.methodEnd);
-        String uri = null; // 需要解析请求参数与URI分离
+        String uri; // 需要解析请求参数与URI分离
         String protocol = new String(requestLine.protocol, 0, requestLine.protocolEnd);
 
         // 验证method与URI
@@ -90,13 +90,38 @@ public class HttpProcessor {
         String match = ";jsessionid=";
         int semicolon = uri.indexOf(match);
         if (semicolon != -1) {
-            // jsessionid的值
+            // `;jsessionid=`之后的值
             String rest = uri.substring(semicolon + match.length());
             int semicolon2 = rest.indexOf(';');
             if (semicolon2 != -1) {
-                // TODO 了解关于jsessionid的规范
+                request.setRequestedSessionId(rest.substring(0, semicolon2));
+                rest = rest.substring(semicolon2);
+            } else {
+                request.setRequestedSessionId(rest);
+                rest = "";
             }
+            request.setRequestedSessionURL(true);
+            // 刨去了jsessionid的uri
+            uri = uri.substring(0, semicolon) + rest;
+        } else {
+            request.setRequestedSessionId(null);
+            request.setRequestedSessionURL(false);
         }
+
+        String normalizedURI = normalize(uri);
+        request.setMethod(method);
+        request.setProtocol(protocol);
+        if (normalizedURI != null) {
+            request.setRequestURI(normalizedURI);
+        } else {
+            throw new ServletException("Invalid URI: '" + uri + "'");
+        }
+    }
+
+    // 对非正常的URL进行修正
+    private String normalize(String uri) {
+        // TODO
+        return null;
     }
 
     private void parseHeaders(SocketInputStream input) {
