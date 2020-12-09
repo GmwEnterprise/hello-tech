@@ -52,7 +52,7 @@ public class HttpRequest implements HttpServletRequest {
     /**
      * 与此请求关联的Cookie集合
      */
-    protected List<Cookie> cookies = new ArrayList<>();
+    protected final List<Cookie> cookies = new ArrayList<>();
     /**
      * An empty collection to use for returning empty Enumerations.  Do not
      * add any elements to this collection!
@@ -84,7 +84,7 @@ public class HttpRequest implements HttpServletRequest {
      * Therefore, application level access to the parameters need not be
      * synchronized.
      */
-    protected ParameterMap parameters = null;
+    protected ParameterMap<String, String[]> parameters = null;
 
     /**
      * Have the parameters for this request been parsed yet?
@@ -123,9 +123,9 @@ public class HttpRequest implements HttpServletRequest {
     protected void parseParameters() {
         if (parsed)
             return;
-        ParameterMap results = parameters;
+        ParameterMap<String, String[]> results = parameters;
         if (results == null)
-            results = new ParameterMap();
+            results = new ParameterMap<>();
         results.setLocked(false);
         String encoding = getCharacterEncoding();
         if (encoding == null)
@@ -154,7 +154,7 @@ public class HttpRequest implements HttpServletRequest {
             try {
                 int max = getContentLength();
                 int len = 0;
-                byte buf[] = new byte[getContentLength()];
+                byte[] buf = new byte[getContentLength()];
                 ServletInputStream is = getInputStream();
                 while (len < max) {
                     int next = is.read(buf, len, max - len);
@@ -439,17 +439,13 @@ public class HttpRequest implements HttpServletRequest {
     @Override
     public Enumeration<String> getParameterNames() {
         parseParameters();
-        return (new Enumerator<String>(parameters.keySet()));
+        return (new Enumerator<>(parameters.keySet()));
     }
 
     @Override
     public String[] getParameterValues(String name) {
         parseParameters();
-        String values[] = (String[]) parameters.get(name);
-        if (values != null)
-            return (values);
-        else
-            return null;
+        return parameters.get(name);
     }
 
     @Override
