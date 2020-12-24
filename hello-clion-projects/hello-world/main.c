@@ -1,21 +1,5 @@
 #include <stdio.h>
 
-// 函数声明
-
-// 测试
-void func1(void);
-// 复杂一点的函数
-void platinum(void);
-// 基本类型测试
-void basicTypeTest();
-// 打印变量的各种方法
-void printVariables();
-
-int main(void) {
-    printVariables();
-    return 0;
-}
-
 void func1(void) {
     int num;
     num = 1;
@@ -43,10 +27,34 @@ void platinum(void) {
     getchar();
 }
 
+void zhuanYi() {
+    // 可以使用 '\x41' 来表示一个ascii字符，41 为ascii码的十六进制表示，这里会打印出字符 A
+    printf("\x41\n");
+
+    /**
+     * '&' 该符号的ascii值为38，八进制为 046，十六进制为 0x26
+     * 所以可以这么打印出该符号
+     */
+    printf("\046 - \x26 - &\n"); // 输出：& - & - &
+}
+
 void basicTypeTest() {
-    unsigned char ch = 255;
-    printf("ch = %d", ch);
-    double d = 3.5E-8;
+    char c1 = 'A';
+    int n1 = 'A', n2 = 65;
+    printf("%c - %c - %c\n", c1, n1, n2);
+    printf("%d - %d - %d\n", c1, n1, n2);
+
+    char fate = 'FATE';
+    int fateInt = 'FATE'; // 4个8位ASCII码存储在32位存储单元
+    printf("%d - %c\n", fate, fate);
+    printf("%d - %c\n", fateInt, fateInt);
+
+    int word = 'XFATE'; // 这种方式无法识别超过4个字符，因为字面量默认为int，只能接纳32位值，超出的部分忽略高位
+    long long wordLong = 'XFATE';
+    printf("FATEO = %d - %lld\n", word, wordLong);
+
+    int num1 = 0xffffffff;
+    long long num2 = 0xffffffff;
 }
 
 void printVariables() {
@@ -66,11 +74,36 @@ void printVariables() {
     unsigned int un = 3000000000;
     short end = 200;
     long big = 65537;
-    long long verybig = 12345678908642;
+    long long very_big = 12345678908642;
 
     // 打印符规则
     printf("un = %u and not %d\n", un, un);
     printf("end = %hd and not %d\n", end, end);
     printf("big = %ld and not %hd\n", big, big);
-    printf("verybig = %lld and not %ld\n", verybig, verybig);
+    printf("very_big = %lld and not %ld\n", very_big, very_big);
+
+    // 打印字符
+    char c1 = 'A';
+    int c1Int = 65, c2Int = '1A';
+    // 十进制65的十六进制为0x41
+    // 字符'1'的ascii码为49，十六进制为0x31
+    //   所以c2Int = '1A' 如果按照 %d 打印，将会被识别为 int，其十六进制值为0x3141，则打印出十进制值为12609
+    printf("%c %c %c %d\n", c1, c1Int, c2Int, c2Int); // 输出：A A A 12609
+
+    // 可以查阅文件 limits.h 以查看当前环境的整型值的表达范围
+}
+
+#include <stdint.h>
+
+void newType() {
+    // stdint.h 提供的32位int型
+    int32_t intVal = 0x7fffffff, intVal2 = 0x8fffffff;
+    int64_t longVal = 0x7fffffffffffffff;
+    printf("%d, %lld\n", intVal, longVal);
+    printf("%d\n", intVal2); // 由于不是关键字，没有ide的智能提示  但仍然溢出，所以打印出负数
+}
+
+int main(void) {
+    newType();
+    return 0;
 }
