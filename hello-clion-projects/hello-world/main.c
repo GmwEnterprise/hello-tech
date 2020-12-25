@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdint.h>
+#include <string.h>
 
 void func1(void) {
     int num;
@@ -44,7 +46,7 @@ void basicTypeTest() {
     printf("%c - %c - %c\n", c1, n1, n2);
     printf("%d - %d - %d\n", c1, n1, n2);
 
-    char fate = 'FATE';
+    char fate = 'FATE'; // 只接收最右边字符
     int fateInt = 'FATE'; // 4个8位ASCII码存储在32位存储单元
     printf("%d - %c\n", fate, fate);
     printf("%d - %c\n", fateInt, fateInt);
@@ -93,8 +95,6 @@ void printVariables() {
     // 可以查阅文件 limits.h 以查看当前环境的整型值的表达范围
 }
 
-#include <stdint.h>
-
 void newType() {
     // stdint.h 提供的32位int型
     int32_t intVal = 0x7fffffff, intVal2 = 0x8fffffff;
@@ -103,7 +103,30 @@ void newType() {
     printf("%d\n", intVal2); // 由于不是关键字，没有ide的智能提示  但仍然溢出，所以打印出负数
 }
 
+void address() {
+    int a = 1, b = 2;
+    printf("address is %p and %p\n", &a, &b);
+}
+
+void floatingNumbers() {
+    float f = 3.40282347E+39f;
+    printf("f = %f\n", f); // 浮点上溢，打印出的 "1.#INF00" 意为无穷大（Infinity）
+
+    float f2 = 8E5f;
+
+}
+
+// 第四章前导程序
+#define DENSITY 62.4
+void talkback() {
+    float weight, volume;
+    int size, letters;
+    char name[40]; // 占用内存中连续的40个字节 存储字符串
+    printf("Hi! What's your first name?\n");
+    scanf("%s", name);
+}
+
 int main(void) {
-    newType();
+    talkback();
     return 0;
 }
