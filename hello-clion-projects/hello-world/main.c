@@ -117,16 +117,39 @@ void floatingNumbers() {
 }
 
 // 第四章前导程序
-#define DENSITY 62.4
+#define DENSITY 62.4f
+
 void talkback() {
     float weight, volume;
     int size, letters;
     char name[40]; // 占用内存中连续的40个字节 存储字符串
     printf("Hi! What's your first name?\n");
     scanf("%s", name);
+    printf("%s, what's your weight in pounds ?\n", name);
+    scanf("%f", &weight);
+    size = sizeof name;
+    letters = strlen(name);
+    volume = weight / DENSITY;
+    printf("Well, %s, your volume is %2.2f cubic feet.\n", name, volume);
+    printf("Also, your first name has %d letters,\n", letters);
+    printf("and we have %d bytes to store it.\n", size);
+}
+
+#define PRAISE "You are an extraordinary being."
+
+void praise1() {
+    char name[40];
+    printf("What's your name? :");
+    scanf("%s", name); // 只能读取一个单词，无法读取第一个空白符及后面的内容
+    printf("\nHello, %s. %s\n", name, PRAISE);
+
+    // %zd 对应 size_t类型
+    printf("Your name of %zd letters occupies %zd memory cells.\n", strlen(name), sizeof(name));
+    printf("The phrase of praise has %zd letters ", strlen(PRAISE));
+    printf("and occupies %zd memory cells.\n", sizeof(PRAISE));
 }
 
 int main(void) {
-    talkback();
+    praise1();
     return 0;
 }
