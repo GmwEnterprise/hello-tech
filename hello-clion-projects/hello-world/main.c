@@ -166,7 +166,35 @@ void defines() {
     printf("float epsilon = %e\n", FLT_EPSILON);
 }
 
+#define PI 3.141593
+
+void printout() {
+    int number = 7;
+    float pies = 12.75f;
+    int cost = 7800;
+    printf("The %d contestants ate %f berry pies.\n", number, pies);
+    printf("The value of PI is %f.\n", PI);
+    printf("Farewell! thou art too dear for my possessing.\n");
+    printf("%c%d\n", '$', 2 * cost);
+}
+
+#define PAGES 959
+
+void width() {
+    printf("*%d*\n", PAGES);
+    printf("*%2d*\n", PAGES);
+    printf("*%10d*\n", PAGES);
+    printf("*%-10d*\n", PAGES);
+    /**
+     output:
+        *959*
+        *959*
+        *       959*
+        *959       *
+     */
+}
+
 int main(void) {
-    defines();
+    width();
     return 0;
 }
