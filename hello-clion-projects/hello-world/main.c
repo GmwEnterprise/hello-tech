@@ -194,7 +194,39 @@ void width() {
      */
 }
 
+#undef PAGES
+#define PAGES 336
+#define WORDS 65618
+
+void intconv() {
+    short num = PAGES, mnum = -PAGES;
+    printf("num as short and unsigned short: %hd %hu\n", num, num);
+    printf("-num as short and unsigned short: %hd %hu\n", mnum, mnum);
+    printf("num as int and char: %d %c\n", num, num);
+    printf("WORDS as int, short, and char: %d %hd %c\n", WORDS, WORDS, WORDS);
+}
+
+void sizeofBasicType() {
+    // 输出：`char(1) short(2) int(4) long(4) float(4) double(8) _Bool(1)`
+    printf("size: char(%zd) short(%zd) int(%zd) long(%zd) float(%zd) double(%zd) _Bool(%zd)\n",
+           sizeof(char), sizeof(short), sizeof(int), sizeof(long),
+           sizeof(float), sizeof(double), sizeof(_Bool));
+}
+
+void floatcnv() {
+    float n1 = 3.0f;
+    double n2 = 3.0;
+    long n3 = 2000000000;
+    long n4 = 1234567890;
+    printf("%.1e %.1e %.1e %.1e\n", n1, n2, n3, n4);
+    printf("%ld %ld\n", n3, n4);
+
+    // win10 x64环境中 long 长度为4字节，%ld 转义符表示转译 long 型变量，所以无法正确识别8字节浮点数
+    printf("%ld %ld %ld %ld\n", n1, n2, n3, n4);
+    printf("%lld %lld\n", n1, n2);
+}
+
 int main(void) {
-    width();
+    floatcnv();
     return 0;
 }
