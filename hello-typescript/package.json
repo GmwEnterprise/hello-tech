@@ -1,0 +1,16 @@
+{
+  "name": "hello-typescript",
+  "version": "1.0.0",
+  "description": "学习ts",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:w": "tsc -w"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}
