@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
-const routes: Array<RouteRecordRaw> = [
+const routes: RouteRecordRaw[] = [
   {
     path: "/",
     redirect: "/login",
   },
   {
     path: "/login",
-    component: () => import("@/views/login/login.vue"),
+    component: () => import("@/views/Login.vue"),
   },
   {
     path: "/main",
-    component: () => import("@/views/main-page/main-page.vue"),
+    component: () => import("@/views/MainPage.vue"),
   },
 ];
 

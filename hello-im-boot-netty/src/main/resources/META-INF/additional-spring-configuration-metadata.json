@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "netty.port",
+      "type": "java.lang.Integer",
+      "description": "Netty默认端口号."
+    }
+  ]
+}
