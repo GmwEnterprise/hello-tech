@@ -1,10 +1,11 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <p>{{ name + ' : ' + computedName }}</p>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { computed, defineComponent, PropType, ref, watchEffect } from 'vue';
 import HelloWorld from './components/HelloWorld.vue';
 
 interface Config {
@@ -17,10 +18,22 @@ export default defineComponent({
     age: {
       type: Number as PropType<number>,
     },
-    config: Object as PropType<Config>,
+    config: {
+      type: Object as PropType<Config>,
+    },
   },
   components: {
     HelloWorld,
+  },
+  setup(props, { slots, attrs, emit }) {
+    const name = ref('Mrag');
+    const computedName = computed(() => name.value + 2);
+    watchEffect(() => console.log(name.value));
+    // setInterval(() => (name.value += '_'), 1000);
+    return {
+      name,
+      computedName,
+    };
   },
 });
 </script>
