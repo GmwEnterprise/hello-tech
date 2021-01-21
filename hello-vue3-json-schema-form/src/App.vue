@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <img alt="Vue logo" src="/logo.png" />
   <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
   <p>{{ name + ' : ' + computedName }}</p>
 </template>
@@ -25,15 +25,18 @@ export default defineComponent({
   components: {
     HelloWorld,
   },
-  setup(props, { slots, attrs, emit }) {
+  setup() {
     const name = ref('Mrag');
     const computedName = computed(() => name.value + 2);
-    watchEffect(() => console.log(name.value));
+    watchEffect(() => console.log('watch: ' + name.value));
     // setInterval(() => (name.value += '_'), 1000);
     return {
       name,
       computedName,
     };
+  },
+  mounted() {
+    console.log('mounted: ' + this.name);
   },
 });
 </script>
