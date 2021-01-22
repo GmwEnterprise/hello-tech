@@ -5,11 +5,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, watchEffect } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import { computed, defineComponent, PropType, ref, watchEffect } from 'vue'
+import HelloWorld from './components/HelloWorld.vue'
 
 interface Config {
-  name: string;
+  name: string
 }
 
 export default defineComponent({
@@ -26,19 +26,19 @@ export default defineComponent({
     HelloWorld,
   },
   setup() {
-    const name = ref('Mrag');
-    const computedName = computed(() => name.value + 2);
-    watchEffect(() => console.log('watch: ' + name.value));
+    const name = ref('Mrag')
+    const computedName = computed(() => name.value + 2)
+    watchEffect(() => console.log('watch: ' + name.value))
     // setInterval(() => (name.value += '_'), 1000);
     return {
       name,
       computedName,
-    };
+    }
   },
   mounted() {
-    console.log('mounted: ' + this.name);
+    console.log('mounted: ' + this.name)
   },
-});
+})
 </script>
 
 <style>
