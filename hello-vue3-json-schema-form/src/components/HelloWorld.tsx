@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 const props = {
   msg: String,
@@ -6,7 +6,7 @@ const props = {
     type: Number,
     required: true,
   },
-} as const;
+} as const
 
 export default defineComponent({
   props,
@@ -15,6 +15,6 @@ export default defineComponent({
       <div class="hello">
         <h1>{props.age + ':' + props.msg}</h1>
       </div>
-    );
+    )
   },
-});
+})
