@@ -6,11 +6,6 @@ module.exports = {
   mode: 'development',
   entry: {
     index: './src/index.js',
-    print: './src/print.js',
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist/',
   },
   output: {
     filename: '[name].bundle.js',
@@ -18,13 +13,10 @@ module.exports = {
     publicPath: './',
   },
   plugins: [
-    new CleanWebpackPlugin({
-      // yarn watch 会监听本地源代码变化实现即时打包
-      // 该选项保证html文件不会被清除
-      cleanStaleWebpackAssets: false,
-    }),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'Development',
+      filename: 'index.template.html',
     }),
   ],
   resolve: {
