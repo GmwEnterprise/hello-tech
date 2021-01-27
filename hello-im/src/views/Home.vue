@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <!-- <div id="home-content">
+    <div id="home-content">
       <h1>Hello, vue</h1>
       <p>
         Creating a Single-page Application with Vue + Vue Router feels natural:
@@ -9,7 +9,7 @@
         components to the routes and let Vue Router know where to render them.
         Here's a basic example:
       </p>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -50,19 +50,20 @@ export default defineComponent({
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top center;
-  filter: blur(5px);
+  filter: blur(7px);
   margin: -30px;
   /* background-attachment: fixed; */
   z-index: -1;
 }
 
-/* #home-content {
-  width: 90%;
-  max-width: 800px;
-  height: 80%;
-  max-height: 700px;
+#home-content {
+  width: 100%;
+  height: 100%;
+  max-width: 960px;
+  max-height: 800px;
   box-sizing: border-box;
-  padding: 15px;
+  /* padding: 15px; */
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-} */
+  background-color: rgba(255 255 255 / 80%);
+}
 </style>
