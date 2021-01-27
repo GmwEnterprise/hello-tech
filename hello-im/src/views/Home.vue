@@ -1,16 +1,12 @@
 <template>
-  <div id="home">
-    <div id="home-content">
-      <h1>Hello, vue</h1>
-      <p>
-        Creating a Single-page Application with Vue + Vue Router feels natural:
-        with Vue.js, we are already composing our application with components.
-        When adding Vue Router to the mix, all we need to do is map our
-        components to the routes and let Vue Router know where to render them.
-        Here's a basic example:
-      </p>
+  <nav class="sidebar">
+    <div class="icon-button-box">
+      <el-button icon="el-icon-search" circle></el-button>
     </div>
-  </div>
+    <div class="icon-button-box">
+      <el-button icon="el-icon-search" circle></el-button>
+    </div>
+  </nav>
 </template>
 
 <script lang="ts">
@@ -29,41 +25,16 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#home {
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+.sidebar {
+  width: 50px;
+  height: 100%;
+  background-color: #303133;
+}
+
+.icon-button-box {
+  width: 50px;
+  height: 50px;
   display: grid;
   place-items: center;
-  z-index: 1;
-}
-
-#home::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('../assets/images/background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top center;
-  filter: blur(7px);
-  margin: -30px;
-  /* background-attachment: fixed; */
-  z-index: -1;
-}
-
-#home-content {
-  width: 100%;
-  height: 100%;
-  max-width: 960px;
-  max-height: 800px;
-  box-sizing: border-box;
-  /* padding: 15px; */
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background-color: rgba(255 255 255 / 80%);
 }
 </style>
