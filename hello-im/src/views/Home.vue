@@ -19,7 +19,10 @@
       </div>
     </nav>
     <div class="listbar"></div>
-    <div class="contentarea"></div>
+    <div class="contentarea">
+      <div class="message-panel"></div>
+      <div class="input-area"></div>
+    </div>
   </div>
 </template>
 
@@ -51,6 +54,9 @@ export default defineComponent({
 .home-container > .sidebar {
   background-color: #303133;
   position: relative;
+  box-sizing: border-box;
+  border-bottom: 0.3em solid #303133;
+  border-top: 0.3em solid #303133;
 }
 
 .home-container > .sidebar > .icon-button-box {
