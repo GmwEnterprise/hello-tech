@@ -8,5 +8,6 @@ module.exports = {
         styleLibraryName: 'theme-chalk',
       },
     ],
+    '@vue/babel-plugin-jsx',
   ],
 }

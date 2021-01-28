@@ -1,37 +1,59 @@
 <template>
-  <nav class="sidebar">
-    <div class="icon-button-box">
-      <el-button icon="el-icon-search" circle></el-button>
-    </div>
-    <div class="icon-button-box">
-      <el-button icon="el-icon-search" circle></el-button>
-    </div>
-  </nav>
+  <div class="home-container">
+    <nav class="sidebar">
+      <div class="icon-button-box">
+        <icon-component
+          name="sessionList"
+          @click="goto('/sessionList')"
+          active
+        />
+      </div>
+      <div class="icon-button-box">
+        <icon-component name="friendList" @click="goto('/friendList')" />
+      </div>
+      <div class="icon-button-box" style="position: absolute;bottom: 0;">
+        <icon-component name="settings" @click="goto('/settings')" />
+      </div>
+      <div class="icon-button-box">
+        <icon-component name="logOut" @click="goto('/logOut')" />
+      </div>
+    </nav>
+    <div class="listbar"></div>
+    <div class="contentarea"></div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent } from 'vue'
+import IconComponent from '../components/Icon.vue'
 
 export default defineComponent({
   name: 'Home',
+  components: { IconComponent },
   setup() {
-    onMounted(() => {
-      //
-      console.log('onMounted')
-    })
-    return {}
+    return {
+      goto: (routeName: string) => {
+        console.log(routeName)
+      },
+    }
   },
 })
 </script>
 
 <style scoped>
-.sidebar {
-  width: 50px;
+.home-container {
+  width: 100%;
   height: 100%;
-  background-color: #303133;
+  display: grid;
+  grid-template-columns: 50px minmax(200px, 25%) auto;
 }
 
-.icon-button-box {
+.home-container > .sidebar {
+  background-color: #303133;
+  position: relative;
+}
+
+.home-container > .sidebar > .icon-button-box {
   width: 50px;
   height: 50px;
   display: grid;
