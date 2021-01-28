@@ -65,4 +65,9 @@ export default defineComponent({
   display: grid;
   place-items: center;
 }
+
+.contentarea {
+  display: grid;
+  grid-template-rows: 70% 30%;
+}
 </style>
