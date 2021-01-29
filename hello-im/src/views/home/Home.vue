@@ -4,40 +4,46 @@
       <div class="icon-button-box">
         <icon-component
           name="sessionList"
-          @click="goto('/sessionList')"
-          active
+          :active="currentTagIndex === 0"
+          @click="currentTagIndex = 0"
         />
       </div>
       <div class="icon-button-box">
-        <icon-component name="friendList" @click="goto('/friendList')" />
+        <icon-component
+          name="friendList"
+          :active="currentTagIndex === 1"
+          @click="currentTagIndex = 1"
+        />
       </div>
       <div class="icon-button-box" style="position: absolute;bottom: 0;">
-        <icon-component name="settings" @click="goto('/settings')" />
+        <icon-component name="settings" />
       </div>
       <div class="icon-button-box">
-        <icon-component name="logOut" @click="goto('/logOut')" />
+        <icon-component name="logOut" />
       </div>
     </nav>
-    <div class="listbar"></div>
-    <div class="contentarea">
-      <div class="message-panel"></div>
-      <div class="input-area"></div>
-    </div>
+    <keep-alive><component :is="currentTag"></component></keep-alive>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import IconComponent from '../components/Icon.vue'
+import { defineComponent, ref, computed } from 'vue'
+import IconComponent from '@/components/Icon.vue'
+import SessionsView from './Sessions.vue'
+import FriendsView from './Friends.vue'
 
 export default defineComponent({
   name: 'Home',
-  components: { IconComponent },
+  components: { IconComponent, SessionsView, FriendsView },
   setup() {
+    const tags = ['sessions-view', 'friends-view'],
+      currentTagIndex = ref(0),
+      currentTag = computed(() => tags[currentTagIndex.value])
     return {
-      goto: (routeName: string) => {
-        console.log(routeName)
-      },
+      // 动态组件
+      tags,
+      currentTagIndex,
+      currentTag,
     }
   },
 })
@@ -48,7 +54,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 50px minmax(200px, 25%) auto;
+  grid-template-columns: 50px 1fr;
 }
 
 .home-container > .sidebar {
@@ -64,10 +70,5 @@ export default defineComponent({
   height: 50px;
   display: grid;
   place-items: center;
-}
-
-.contentarea {
-  display: grid;
-  grid-template-rows: 70% 30%;
 }
 </style>
