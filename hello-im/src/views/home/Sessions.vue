@@ -24,10 +24,54 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
+enum MessageDirection {
+  FROM_OTHER_SIDE,
+  FROM_ME,
+}
+
+interface Msg {
+  // 消息是发给对方的 还是对方发来的
+  direction: MessageDirection
+  // 消息发送时间
+  sendTime: Date
+  // 消息接收时间
+  receiveTime: Date
+  // 消息文本内容
+  wordContent: string
+}
+
+interface Session {
+  // 用户ID
+  senderUserId: number
+  // 用户名
+  senderUsername: string
+  // 用户头像链接
+  senderHeadPortraitUrl: string
+  // 会话是否激活
+  active: boolean
+  // 未读消息数目
+  unreadCount: number
+  // 消息
+  msgList: Array<Msg>
+}
+
 export default defineComponent({
   name: 'SessionsView',
   setup() {
-    const sessionList = ref([{ active: false }, { active: false }])
+    const sessionList = ref([
+      {
+        senderUserId: 1,
+        senderUsername: '阿甘',
+        senderHeadPortraitUrl: '',
+        active: false,
+      },
+      {
+        senderUserId: 2,
+        senderUsername: '童童',
+        senderHeadPortraitUrl: '',
+        active: false,
+      },
+    ] as Array<Session>)
     const activeSession = (index: number) =>
       sessionList.value.forEach((item, i) => {
         item.active = i === index
