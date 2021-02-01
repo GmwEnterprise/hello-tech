@@ -2,9 +2,10 @@
   <div class="sessions-view">
     <div class="session-list">
       <div
-        v-for="n in 5"
-        :key="n"
-        :class="n < 5 ? 'session' : 'session session-active'"
+        v-for="(session, index) in sessionList"
+        :key="index"
+        @click="activeSession(index)"
+        :class="session.active ? 'session session-active' : 'session'"
       >
         <img src="@/assets/images/me.jpg" />
         <div class="session-title">
@@ -21,10 +22,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'SessionsView',
+  setup() {
+    const sessionList = ref([{ active: false }, { active: false }])
+    const activeSession = (index: number) =>
+      sessionList.value.forEach((item, i) => {
+        item.active = i === index
+      })
+    return {
+      sessionList,
+      activeSession,
+    }
+  },
 })
 </script>
 
