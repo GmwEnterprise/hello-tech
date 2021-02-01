@@ -10,7 +10,9 @@
         <img src="@/assets/images/me.jpg" />
         <div class="session-title">
           <div class="session-title-head">
-            <span class="session-title-head-name">阿甘</span>
+            <span class="session-title-head-name">{{
+              session.senderUsername
+            }}</span>
             <span class="session-title-head-newmessage-time">下午 4:58</span>
           </div>
         </div>
