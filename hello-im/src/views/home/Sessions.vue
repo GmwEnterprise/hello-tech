@@ -32,35 +32,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { Session } from '@/interfaces'
 import ContextMenu from '@/components/ContextMenu.vue'
-
-const data: Session[] = [
-  {
-    sessionId: 1,
-    sessionName: '阿甘',
-    sessionHeadPortraitUrl: '',
-    active: false,
-  },
-  {
-    sessionId: 2,
-    sessionName: '泰勒',
-    sessionHeadPortraitUrl: '',
-    active: false,
-  },
-  {
-    sessionId: 3,
-    sessionName: '小熊维尼',
-    sessionHeadPortraitUrl: '',
-    active: false,
-  },
-  {
-    sessionId: 4,
-    sessionName: '三上悠亚',
-    sessionHeadPortraitUrl: '',
-    active: false,
-  },
-]
+import { data } from './session-data'
 
 export default defineComponent({
   name: 'SessionsView',
@@ -88,12 +61,10 @@ export default defineComponent({
     const contextMenu = (e: MouseEvent, index: number): void => {
       e.preventDefault() // 阻止浏览器默认右键菜单行为
       console.debug(`右键点击了[${sessionList.value[index].sessionName}]`)
-
-      console.debug(`
-        left: ${e.clientX},
-        top: ${e.clientY},
-        right: ${window.innerWidth - e.clientX},
-        bottom: ${window.innerHeight - e.clientY}`)
+      console.debug(
+        `left: ${e.clientX}, top: ${e.clientY}, right: ${window.innerWidth -
+          e.clientX}, bottom: ${window.innerHeight - e.clientY}`,
+      )
 
       sessionList.value.forEach((session, i) => {
         i !== index && (session.contextMenuOption = { show: false })
@@ -123,12 +94,15 @@ export default defineComponent({
   display: grid;
   grid-template-rows: 1fr minmax(200px, 25%);
   grid-template-columns: 250px 1fr;
+  /* height: 100%;
+  width: 100%; */
 }
 
 .session-list {
   grid-row: 1 / span 2;
   background-color: #f2f6fc;
   width: 100%;
+  height: 100%;
 }
 
 .session {
