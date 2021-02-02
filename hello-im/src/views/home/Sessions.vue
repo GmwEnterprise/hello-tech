@@ -2,17 +2,24 @@
   <div class="sessions-view">
     <div class="session-list">
       <div
-        v-for="(session, index) in sessionList"
+        v-for="(item, index) in sessionList"
         :key="index"
-        @click="activeSession(index)"
-        :class="session.active ? 'session session-active' : 'session'"
+        @click="markAsCurrent(index)"
+        @contextmenu="contextMenu($event, index)"
+        :class="{ session: true, 'session-active': item.active }"
       >
+        <context-menu
+          :showOption="item.contextMenuOption"
+          :items="[
+            { title: '标为已读', action: () => {} },
+            { title: '置顶', action: () => {} },
+            { title: '删除聊天', action: () => {} },
+          ]"
+        />
         <img src="@/assets/images/me.jpg" />
         <div class="session-title">
           <div class="session-title-head">
-            <span class="session-title-head-name">{{
-              session.senderUsername
-            }}</span>
+            <span class="session-title-head-name">{{ item.sessionName }}</span>
             <span class="session-title-head-newmessage-time">下午 4:58</span>
           </div>
         </div>
@@ -25,62 +32,87 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { Session } from '@/interfaces'
+import ContextMenu from '@/components/ContextMenu.vue'
 
-enum MessageDirection {
-  FROM_OTHER_SIDE,
-  FROM_ME,
-}
-
-interface Msg {
-  // 消息是发给对方的 还是对方发来的
-  direction: MessageDirection
-  // 消息发送时间
-  sendTime: Date
-  // 消息接收时间
-  receiveTime: Date
-  // 消息文本内容
-  wordContent: string
-}
-
-interface Session {
-  // 用户ID
-  senderUserId: number
-  // 用户名
-  senderUsername: string
-  // 用户头像链接
-  senderHeadPortraitUrl: string
-  // 会话是否激活
-  active: boolean
-  // 未读消息数目
-  unreadCount: number
-  // 消息
-  msgList: Array<Msg>
-}
+const data: Session[] = [
+  {
+    sessionId: 1,
+    sessionName: '阿甘',
+    sessionHeadPortraitUrl: '',
+    active: false,
+  },
+  {
+    sessionId: 2,
+    sessionName: '泰勒',
+    sessionHeadPortraitUrl: '',
+    active: false,
+  },
+  {
+    sessionId: 3,
+    sessionName: '小熊维尼',
+    sessionHeadPortraitUrl: '',
+    active: false,
+  },
+  {
+    sessionId: 4,
+    sessionName: '三上悠亚',
+    sessionHeadPortraitUrl: '',
+    active: false,
+  },
+]
 
 export default defineComponent({
   name: 'SessionsView',
+  components: { ContextMenu },
   setup() {
-    const sessionList = ref([
-      {
-        senderUserId: 1,
-        senderUsername: '阿甘',
-        senderHeadPortraitUrl: '',
-        active: false,
-      },
-      {
-        senderUserId: 2,
-        senderUsername: '童童',
-        senderHeadPortraitUrl: '',
-        active: false,
-      },
-    ] as Array<Session>)
-    const activeSession = (index: number) =>
-      sessionList.value.forEach((item, i) => {
-        item.active = i === index
+    // 会话数据
+    const sessionList = ref(data)
+    // 当前会话数组索引
+    const currentIndex = ref(-1)
+    // 标记点击会话为当前会话
+    const markAsCurrent = (index: number): void => {
+      sessionList.value[index].active = true
+      if (currentIndex.value > -1) {
+        sessionList.value[currentIndex.value].active = false
+      }
+      currentIndex.value = index
+    }
+    // 移除当前会话
+    const removeSession = (index: number): void => {
+      if (index === currentIndex.value) {
+        currentIndex.value = -1
+        sessionList.value.splice(index, 1)
+      }
+    }
+    const contextMenu = (e: MouseEvent, index: number): void => {
+      e.preventDefault() // 阻止浏览器默认右键菜单行为
+      console.debug(`右键点击了[${sessionList.value[index].sessionName}]`)
+
+      console.debug(`
+        left: ${e.clientX},
+        top: ${e.clientY},
+        right: ${window.innerWidth - e.clientX},
+        bottom: ${window.innerHeight - e.clientY}`)
+
+      sessionList.value.forEach((session, i) => {
+        i !== index && (session.contextMenuOption = { show: false })
       })
+
+      sessionList.value[index].contextMenuOption = {
+        show: true,
+        clientLeft: e.clientX,
+        clientRight: window.innerWidth - e.clientX,
+        clientTop: e.clientY,
+        clientBottom: window.innerHeight - e.clientY,
+      }
+    }
     return {
       sessionList,
-      activeSession,
+      currentIndex,
+      markAsCurrent,
+      removeSession,
+      contextMenu,
     }
   },
 })
