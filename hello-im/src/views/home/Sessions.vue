@@ -60,6 +60,18 @@ export default defineComponent({
             console.log('close')
           },
         },
+        {
+          title: '关闭菜单',
+          action: () => {
+            console.log('close')
+          },
+        },
+        {
+          title: '关闭菜单',
+          action: () => {
+            console.log('close')
+          },
+        },
       ],
     }
   },

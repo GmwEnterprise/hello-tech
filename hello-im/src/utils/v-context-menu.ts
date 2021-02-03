@@ -34,8 +34,9 @@ export default function vContextMenu(app: App<Element>) {
         // 右键菜单点击了项目以后就会关闭菜单
         const items = value as MenuItem[]
         items.forEach((item) => {
+          const temp = item.action
           item.action = () => {
-            item.action()
+            temp()
             // 执行完菜单点击后关闭菜单
             while (components.length > 0) {
               const menu = components.pop()
