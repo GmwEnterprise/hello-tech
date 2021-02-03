@@ -1,30 +1,41 @@
 <template>
-  <ul class="context-menu" v-show="show">
-    <li v-for="(item, index) in items" :key="index" @click="item.action()">
+  <ul class="context-menu" :style="contextMenuStyle">
+    <li
+      v-for="(item, index) in showOptions.items"
+      :key="index"
+      @click="item.action()"
+    >
       {{ item.title }}
     </li>
   </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { MenuItem, ShowOption } from '@/interfaces'
+import { defineComponent, PropType, reactive } from 'vue'
+import { ShowOptions } from '@/common.type'
 
 export default defineComponent({
   name: 'ContextMenu',
   props: {
-    items: {
-      type: Array as PropType<MenuItem[]>,
+    showOptions: {
+      type: Object as PropType<ShowOptions>,
       required: true,
     },
-    showOption: {
-      type: Object as PropType<ShowOption>,
-      required: false,
-    },
   },
-  setup() {
+  setup(props) {
+    // 计算右键菜单的宽度与高度
+    const contextMenuStyle = reactive({
+      position: 'fixed',
+      width: '200px',
+      height: '300px',
+      top: props.showOptions.top + 'px',
+      left: props.showOptions.left + 'px',
+      'background-color': '#fff',
+      border: '1px solid black',
+      'z-index': 100,
+    })
     return {
-      show: false,
+      contextMenuStyle,
     }
   },
 })

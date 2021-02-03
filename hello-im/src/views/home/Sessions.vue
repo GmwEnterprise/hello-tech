@@ -5,17 +5,9 @@
         v-for="(item, index) in sessionList"
         :key="index"
         @click="markAsCurrent(index)"
-        @contextmenu="contextMenu($event, index)"
         :class="{ session: true, 'session-active': item.active }"
+        v-context-menu="contextMenuOptions"
       >
-        <context-menu
-          :showOption="item.contextMenuOption"
-          :items="[
-            { title: '标为已读', action: () => {} },
-            { title: '置顶', action: () => {} },
-            { title: '删除聊天', action: () => {} },
-          ]"
-        />
         <img src="@/assets/images/me.jpg" />
         <div class="session-title">
           <div class="session-title-head">
@@ -32,15 +24,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import ContextMenu from '@/components/ContextMenu.vue'
-import { data } from './session-data'
+import { data as testData } from './session-data'
 
 export default defineComponent({
   name: 'SessionsView',
-  components: { ContextMenu },
   setup() {
     // 会话数据
-    const sessionList = ref(data)
+    const sessionList = ref(testData)
     // 当前会话数组索引
     const currentIndex = ref(-1)
     // 标记点击会话为当前会话
@@ -58,32 +48,19 @@ export default defineComponent({
         sessionList.value.splice(index, 1)
       }
     }
-    const contextMenu = (e: MouseEvent, index: number): void => {
-      e.preventDefault() // 阻止浏览器默认右键菜单行为
-      console.debug(`右键点击了[${sessionList.value[index].sessionName}]`)
-      console.debug(
-        `left: ${e.clientX}, top: ${e.clientY}, right: ${window.innerWidth -
-          e.clientX}, bottom: ${window.innerHeight - e.clientY}`,
-      )
-
-      sessionList.value.forEach((session, i) => {
-        i !== index && (session.contextMenuOption = { show: false })
-      })
-
-      sessionList.value[index].contextMenuOption = {
-        show: true,
-        clientLeft: e.clientX,
-        clientRight: window.innerWidth - e.clientX,
-        clientTop: e.clientY,
-        clientBottom: window.innerHeight - e.clientY,
-      }
-    }
     return {
       sessionList,
       currentIndex,
       markAsCurrent,
       removeSession,
-      contextMenu,
+      contextMenuOptions: [
+        {
+          title: '关闭菜单',
+          action: () => {
+            console.log('close')
+          },
+        },
+      ],
     }
   },
 })
@@ -91,11 +68,10 @@ export default defineComponent({
 
 <style scoped>
 .sessions-view {
+  width: calc(100% - 50px);
   display: grid;
   grid-template-rows: 1fr minmax(200px, 25%);
   grid-template-columns: 250px 1fr;
-  /* height: 100%;
-  width: 100%; */
 }
 
 .session-list {
@@ -103,6 +79,11 @@ export default defineComponent({
   background-color: #f2f6fc;
   width: 100%;
   height: 100%;
+  overflow-y: scroll;
+}
+
+.session-list::-webkit-scrollbar {
+  display: none;
 }
 
 .session {

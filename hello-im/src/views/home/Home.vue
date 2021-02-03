@@ -53,11 +53,13 @@ export default defineComponent({
 .home-container {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: 50px 1fr;
+  display: flex;
+  justify-content: space-between;
+  /* grid-template-columns: 50px 1fr; */
 }
 
 .home-container > .sidebar {
+  width: 50px;
   background-color: #303133;
   position: relative;
   box-sizing: border-box;

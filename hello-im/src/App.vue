@@ -46,12 +46,11 @@ export default defineComponent({
 }
 
 #app-content {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   max-width: 960px;
   max-height: 800px;
   box-sizing: border-box;
-  /* padding: 15px; */
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   background-color: rgba(255 255 255 / 80%);
 }

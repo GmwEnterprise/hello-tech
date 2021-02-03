@@ -27,25 +27,26 @@ export interface Session {
   unreadCount?: number
   // 消息
   msgList?: Array<Msg>
-  // 右键菜单开启状态
-  contextMenuOption?: ShowOption
 }
 
 export interface MenuItem {
+  // 选择项标题
   title: string
+  // 是否带有图标
   icon?: string
+  // 操作
   action: () => void
 }
 
-export interface ShowOption {
-  // 是否显示
-  show: boolean
+export interface ShowOptions {
   // 点击位置距浏览器可视区域左边缘位置
-  clientLeft?: number
+  left?: number
   // 点击位置距浏览器可视区域右边缘位置
-  clientRight?: number
+  right?: number
   // 点击位置距浏览器可视区域上边缘位置
-  clientTop?: number
+  top?: number
   // 点击位置距浏览器可视区域下边缘位置
-  clientBottom?: number
+  bottom?: number
+  // 右键菜单选项
+  items: MenuItem[]
 }
