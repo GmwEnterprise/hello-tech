@@ -5,8 +5,8 @@
         v-for="(item, index) in sessionList"
         :key="index"
         @click="markAsCurrent(index)"
+        v-context-menu="items"
         :class="{ session: true, 'session-active': item.active }"
-        v-context-menu="contextMenuOptions"
       >
         <img src="@/assets/images/me.jpg" />
         <div class="session-title">
@@ -23,6 +23,7 @@
 </template>
 
 <script lang="ts">
+import { MenuItem } from '@/common.type'
 import { defineComponent, ref } from 'vue'
 import { data as testData } from './session-data'
 
@@ -53,26 +54,20 @@ export default defineComponent({
       currentIndex,
       markAsCurrent,
       removeSession,
-      contextMenuOptions: [
+      items: [
         {
-          title: '关闭菜单',
-          action: () => {
-            console.log('close')
-          },
+          title: '置顶',
+          action: () => console.log('置顶'),
         },
         {
-          title: '关闭菜单',
-          action: () => {
-            console.log('close')
-          },
+          title: '消息静音',
+          action: () => console.log('消息静音'),
         },
         {
-          title: '关闭菜单',
-          action: () => {
-            console.log('close')
-          },
+          title: '关闭聊天窗口',
+          action: () => console.log('关闭聊天窗口'),
         },
-      ],
+      ] as MenuItem[],
     }
   },
 })

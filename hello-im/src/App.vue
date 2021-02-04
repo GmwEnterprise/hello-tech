@@ -2,6 +2,7 @@
   <div id="app-content">
     <router-view />
   </div>
+  <v-context-menu />
 </template>
 
 <script lang="ts">

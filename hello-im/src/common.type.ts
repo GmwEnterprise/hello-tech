@@ -29,24 +29,20 @@ export interface Session {
   msgList?: Array<Msg>
 }
 
+export interface ContextMenuState {
+  // 是否显示
+  show: boolean
+  // 坐标
+  positionStyle: object
+  // 菜单选项
+  items: MenuItem[]
+}
+
 export interface MenuItem {
   // 选择项标题
   title: string
-  // 是否带有图标
-  icon?: string
   // 操作
   action: () => void
-}
-
-export interface ShowOptions {
-  // 点击位置距浏览器可视区域左边缘位置
-  left?: number
-  // 点击位置距浏览器可视区域右边缘位置
-  right?: number
-  // 点击位置距浏览器可视区域上边缘位置
-  top?: number
-  // 点击位置距浏览器可视区域下边缘位置
-  bottom?: number
-  // 右键菜单选项
-  items: MenuItem[]
+  // 是否可点击
+  available?: boolean
 }
