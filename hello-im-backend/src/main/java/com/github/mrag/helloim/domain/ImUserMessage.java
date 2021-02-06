@@ -78,19 +78,17 @@ public class ImUserMessage implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", sendTime=").append(sendTime);
-        sb.append(", messageStatus=").append(messageStatus);
-        sb.append(", receiveTime=").append(receiveTime);
-        sb.append(", sendUserId=").append(sendUserId);
-        sb.append(", receiveUserId=").append(receiveUserId);
-        sb.append(", textContent=").append(textContent);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return getClass().getSimpleName() +
+                " [" +
+                "Hash = " + hashCode() +
+                ", id=" + id +
+                ", sendTime=" + sendTime +
+                ", messageStatus=" + messageStatus +
+                ", receiveTime=" + receiveTime +
+                ", sendUserId=" + sendUserId +
+                ", receiveUserId=" + receiveUserId +
+                ", textContent=" + textContent +
+                ", serialVersionUID=" + serialVersionUID +
+                "]";
     }
 }

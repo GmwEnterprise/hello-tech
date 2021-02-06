@@ -18,6 +18,9 @@
     from im_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectIdByUsername" resultType="java.lang.Integer">
+    select id from im_user where username = #{username} and password = #{password}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from im_user
     where id = #{id,jdbcType=INTEGER}
