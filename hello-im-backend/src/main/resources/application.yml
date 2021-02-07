@@ -1,0 +1,15 @@
+server:
+  port: 4200
+  servlet:
+    context-path: /hello-im/api
+
+spring:
+  datasource:
+    url: jdbc:mysql://120.79.155.125:4001/hello_im?serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:/mapping/**/*.xml
