@@ -102,6 +102,7 @@ export default defineComponent({
 
 .session:hover {
   background-color: #e4e7ed;
+  cursor: context-menu;
 }
 
 .session.session-active {

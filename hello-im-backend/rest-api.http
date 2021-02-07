@@ -1,0 +1,6 @@
+GET http://localhost:4200/hello-im/im-user/about-me
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwic3ViIjoiTXJhZyIsImlhdCI6MTYxMjYyOTA0OCwiYmVmb3JlX2V4cGlyYXRpb24iOiIyMDIxLTAyLTA3IDAyOjI1OjQ4IiwiZXhwIjoxNjEyNjM2MjQ4fQ.20Ivn_M-woeReQJmCVNnUJT6dkx_HTvOtrfGlao8-vk
+
+###
+
+GET http://localhost:4200/hello-im/im-user/sign-in
