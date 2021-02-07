@@ -7,9 +7,21 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useStore } from './store'
+import router from './router'
+import { tokenValidation } from './api'
 
 export default defineComponent({
   name: 'App',
+  created() {
+    const store = useStore()
+    if (store.state.userMsg.token) {
+      // 校验token
+      tokenValidation().catch(() => router.push('/login'))
+    } else {
+      router.push('/login')
+    }
+  },
 })
 </script>
 

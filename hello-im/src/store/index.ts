@@ -2,6 +2,12 @@ import { ContextMenuState, MenuItem } from '@/types'
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 
+export const Mutations = {
+  updateAndShow: 'updateAndShow',
+  hide: 'hide',
+  tokenUpdate: 'tokenUpdate',
+}
+
 // define your typings for the store state
 export interface State {
   contextMenu: {
@@ -11,6 +17,10 @@ export interface State {
     positionStyle: object
     // 菜单选项
     items: MenuItem[]
+  }
+  userMsg: {
+    // 令牌
+    token: string | null
   }
 }
 
@@ -24,17 +34,25 @@ export const store = createStore<State>({
       positionStyle: {},
       items: [],
     },
+    userMsg: {
+      token: localStorage.getItem('token'),
+    },
   },
   mutations: {
-    updateAndShow(state: State, payload: ContextMenuState) {
+    [Mutations.updateAndShow](state: State, payload: ContextMenuState) {
       console.debug('mutations.updateAndShow')
       state.contextMenu.show = payload.show
       state.contextMenu.positionStyle = payload.positionStyle
       state.contextMenu.items = payload.items
     },
-    hide(state: State) {
+    [Mutations.hide](state: State) {
       console.debug('mutations.hide')
       state.contextMenu.show = false
+    },
+    [Mutations.tokenUpdate](state: State, payload: string) {
+      console.debug('mutations.tokenUpdate')
+      state.userMsg.token = payload
+      localStorage.setItem('token', payload)
     },
   },
 })

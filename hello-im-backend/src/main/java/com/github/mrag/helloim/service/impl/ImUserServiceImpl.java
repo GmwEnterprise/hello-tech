@@ -1,10 +1,11 @@
 package com.github.mrag.helloim.service.impl;
 
+import com.github.mrag.helloim.common.Enums;
 import com.github.mrag.helloim.common.Exceptions;
+import com.github.mrag.helloim.common.HttpToken;
+import com.github.mrag.helloim.common.HttpTokenUtils;
 import com.github.mrag.helloim.dao.ImUserMapper;
 import com.github.mrag.helloim.domain.ImUser;
-import com.github.mrag.helloim.security.HttpToken;
-import com.github.mrag.helloim.security.HttpTokenUtils;
 import com.github.mrag.helloim.service.ImUserService;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,17 @@ public class ImUserServiceImpl implements ImUserService {
         Integer userId = Optional.ofNullable(imUserMapper.selectIdByUsername(username, password))
                                  .orElseThrow(() -> Exceptions.signInError("账户不存在或密码错误"));
         return httpTokenUtils.tokenSerialize(new HttpToken(userId, username));
+    }
+
+    @Override
+    public String signOn(ImUser user) {
+        imUserMapper.insertSelective(user);
+        return httpTokenUtils.tokenSerialize(new HttpToken(user.getId(), user.getUsername()));
+    }
+
+    @Override
+    public Enums.UserStatus getUserStatus(int userId, String username) {
+        // todo 待扩展
+        return Enums.UserStatus.NORMAL;
     }
 }

@@ -8,7 +8,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/home',
     name: 'Home',
-    component: () => import('../views/Home.vue'),
+    component: () => import('../views/mainLayout/Home.vue'),
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/login/Login.vue'),
   },
   {
     path: '/about',
@@ -17,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     // import(/* webpackChunkName: "about" */ '../views/About.vue'),
-    component: () => import('../views/About.vue'),
+    component: () => import('../views/mainLayout/About.vue'),
   },
 ]
 

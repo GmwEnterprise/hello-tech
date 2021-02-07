@@ -1,4 +1,4 @@
-package com.github.mrag.helloim.security;
+package com.github.mrag.helloim.common;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

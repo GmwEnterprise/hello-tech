@@ -1,10 +1,7 @@
 package com.github.mrag.helloim.interceptors;
 
-import com.github.mrag.helloim.common.ComponentUtils;
-import com.github.mrag.helloim.common.Exceptions;
-import com.github.mrag.helloim.common.Permission;
-import com.github.mrag.helloim.security.HttpToken;
-import com.github.mrag.helloim.security.HttpTokenUtils;
+import com.github.mrag.helloim.common.*;
+import com.github.mrag.helloim.service.ImUserService;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -30,6 +27,13 @@ public final class HttpTokenInterceptor implements HandlerInterceptor {
                 if (tokenInstance.getExpState()) {
                     // token过期
                     throw Exceptions.tokenExpiration();
+                }
+                ImUserService imUserService = ComponentUtils.getBean(ImUserService.class);
+                Enums.UserStatus status = imUserService.getUserStatus(tokenInstance.getUserId(),
+                                                                      tokenInstance.getUsername());
+                if (status != Enums.UserStatus.NORMAL) {
+                    // token无效
+                    throw Exceptions.tokenInvalidation();
                 }
                 String checked = tokenUtils.isNeedUpdate(tokenInstance);
                 if (checked != null) {

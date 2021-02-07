@@ -1,6 +1,7 @@
-package com.github.mrag.helloim.security;
+package com.github.mrag.helloim.common;
 
 import com.github.mrag.helloim.common.DateTimeUtils;
+import com.github.mrag.helloim.common.HttpToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
