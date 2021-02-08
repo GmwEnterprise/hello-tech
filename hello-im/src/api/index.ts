@@ -29,7 +29,7 @@ http.interceptors.response.use(
       }
       return response
     }
-    return Promise.reject(response.data)
+    return Promise.reject(result)
   },
   (error) => {
     if (error instanceof Error) {
@@ -43,19 +43,24 @@ http.interceptors.response.use(
   },
 )
 
+/**
+ * axios实例
+ */
 export default http
 
+/**
+ * token校验
+ */
 export async function tokenValidation(): Promise<HttpResponse> {
-  const response = await http.post('/im-user/token-validation')
-  return response.data
+  return (await http.post('/im-user/token-validation')).data
 }
 
+/**
+ * 参数校验
+ * @param paramaterBody 待校验参数
+ */
 export async function parameterValidation(
   paramaterBody: object,
 ): Promise<HttpResponse> {
-  const response = await http.post(
-    '/im-user/parameter-validation',
-    paramaterBody,
-  )
-  return response.data
+  return (await http.post('/im-user/parameter-validation', paramaterBody)).data
 }

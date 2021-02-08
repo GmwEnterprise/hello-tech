@@ -73,7 +73,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { IconName } from '@/types'
+import { IconName } from '@/common/types'
 
 export default defineComponent({
   name: 'Icon',

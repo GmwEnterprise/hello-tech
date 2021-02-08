@@ -1,0 +1,46 @@
+{
+  "groups": [
+    {
+      "name": "im-sys",
+      "type": "com.github.mrag.helloim.common.SystemProperties"
+    },
+    {
+      "name": "im-sys.error-code",
+      "type": "com.github.mrag.helloim.common.SystemProperties$ErrorCode"
+    }
+  ],
+  "properties": [
+    {
+      "name": "im-sys.error-code.token-expiration",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "im-sys.error-code.token-missing",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "im-sys.error-code.token-invalidation",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "im-sys.error-code.bad-request",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "im-sys.error-code.empty-parameter",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "im-sys.error-code.sing-in-error",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "im-sys.error-code.system-error",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "im-sys.error-code.enum-not-found",
+      "type": "java.lang.String"
+    }
+  ]
+}

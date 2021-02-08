@@ -1,6 +1,6 @@
 import { App } from 'vue'
 import ContextMenu from '@/components/ContextMenu.vue'
-import { ContextMenuState, MenuItem } from '@/types'
+import { ContextMenuState, MenuItem } from '@/common/types'
 import { store } from '@/store'
 
 export default function vContextMenu(app: App<Element>) {

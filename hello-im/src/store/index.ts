@@ -1,4 +1,4 @@
-import { ContextMenuState, MenuItem } from '@/types'
+import { ContextMenuState, MenuItem } from '@/common/types'
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 

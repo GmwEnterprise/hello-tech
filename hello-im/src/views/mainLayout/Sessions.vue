@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { MenuItem } from '@/types'
+import { MenuItem } from '@/common/types'
 import { defineComponent, ref } from 'vue'
 import { data as testData } from './session-data'
 

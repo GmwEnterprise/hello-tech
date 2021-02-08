@@ -6,6 +6,19 @@ import org.slf4j.LoggerFactory;
 public final class Exceptions {
     private static final Logger log = LoggerFactory.getLogger(Exceptions.class);
 
+    private static SystemProperties propertiesInstance = null;
+
+    private static SystemProperties properties() {
+        if (propertiesInstance == null) {
+            synchronized (Exceptions.class) {
+                if (propertiesInstance == null) {
+                    propertiesInstance = ComponentUtils.getBean(SystemProperties.class);
+                }
+            }
+        }
+        return propertiesInstance;
+    }
+
     public static GlobalException tokenExpiration() {
         return new GlobalException("0001", "令牌已过期");
     }

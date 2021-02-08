@@ -18,7 +18,7 @@ public class ImUserDto implements Serializable {
     @Pattern(regexp = Consts.RegExp.PHONE)
     private String bindPhone;
 
-    @Email(regexp = Consts.RegExp.EMAIL)
+    @Email
     private String bindEmail;
 
     @Pattern(regexp = Consts.RegExp.URL)

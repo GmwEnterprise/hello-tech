@@ -1,4 +1,4 @@
-import { Session } from '@/types'
+import { Session } from '@/common/types'
 
 export const data: Session[] = [
   {
