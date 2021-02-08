@@ -65,7 +65,7 @@ public final class Exceptions {
         private final String code;
 
         public GlobalException(String code, String message) {
-            super(String.format("code:[%s], message:[%s]", code, message));
+            super(message);
             this.code = code;
         }
 

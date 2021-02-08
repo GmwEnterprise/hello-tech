@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs'
 import { store, Mutations } from '../store'
 
 export interface HttpResponse {
@@ -34,7 +35,7 @@ http.interceptors.response.use(
   (error) => {
     if (error instanceof Error) {
       return Promise.reject({
-        code: '0001',
+        code: '0006',
         message: error.message,
         body: error,
       })
@@ -57,10 +58,26 @@ export async function tokenValidation(): Promise<HttpResponse> {
 
 /**
  * 参数校验
- * @param paramaterBody 待校验参数
+ * @param params 待校验参数
  */
 export async function parameterValidation(
-  paramaterBody: object,
+  params: object,
 ): Promise<HttpResponse> {
-  return (await http.post('/im-user/parameter-validation', paramaterBody)).data
+  return (await http.post('/im-user/parameter-validation', params)).data
+}
+
+/**
+ * 登录
+ * @param params 登录入参
+ */
+export async function signIn(params: object): Promise<HttpResponse> {
+  return (await http.post('/im-user/sign-in', qs.stringify(params))).data
+}
+
+/**
+ * 注册
+ * @param params 注册入参
+ */
+export async function signOn(params: object): Promise<HttpResponse> {
+  return (await http.post('/im-user/sign-on', params)).data
 }
