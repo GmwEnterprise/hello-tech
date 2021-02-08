@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mrag.helloim.dao.ImUserRelationshipMapper">
+  <resultMap id="BaseResultMap" type="com.github.mrag.helloim.domain.ImUserRelationship">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_from" jdbcType="INTEGER" property="userFrom" />
+    <result column="user_to" jdbcType="INTEGER" property="userTo" />
+    <result column="identity_state" jdbcType="TINYINT" property="identityState" />
+    <result column="action_state" jdbcType="TINYINT" property="actionState" />
+    <result column="last_update" jdbcType="TIMESTAMP" property="lastUpdate" />
+    <result column="when_create" jdbcType="TIMESTAMP" property="whenCreate" />
+    <result column="end" jdbcType="BIT" property="end" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_from, user_to, identity_state, action_state, last_update, when_create, end
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from im_user_relationship
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from im_user_relationship
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.github.mrag.helloim.domain.ImUserRelationship">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into im_user_relationship (user_from, user_to, identity_state, 
+      action_state, last_update, when_create, 
+      end)
+    values (#{userFrom,jdbcType=INTEGER}, #{userTo,jdbcType=INTEGER}, #{identityState,jdbcType=TINYINT}, 
+      #{actionState,jdbcType=TINYINT}, #{lastUpdate,jdbcType=TIMESTAMP}, #{whenCreate,jdbcType=TIMESTAMP}, 
+      #{end,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.mrag.helloim.domain.ImUserRelationship">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into im_user_relationship
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userFrom != null">
+        user_from,
+      </if>
+      <if test="userTo != null">
+        user_to,
+      </if>
+      <if test="identityState != null">
+        identity_state,
+      </if>
+      <if test="actionState != null">
+        action_state,
+      </if>
+      <if test="lastUpdate != null">
+        last_update,
+      </if>
+      <if test="whenCreate != null">
+        when_create,
+      </if>
+      <if test="end != null">
+        end,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userFrom != null">
+        #{userFrom,jdbcType=INTEGER},
+      </if>
+      <if test="userTo != null">
+        #{userTo,jdbcType=INTEGER},
+      </if>
+      <if test="identityState != null">
+        #{identityState,jdbcType=TINYINT},
+      </if>
+      <if test="actionState != null">
+        #{actionState,jdbcType=TINYINT},
+      </if>
+      <if test="lastUpdate != null">
+        #{lastUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="whenCreate != null">
+        #{whenCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="end != null">
+        #{end,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.github.mrag.helloim.domain.ImUserRelationship">
+    update im_user_relationship
+    <set>
+      <if test="userFrom != null">
+        user_from = #{userFrom,jdbcType=INTEGER},
+      </if>
+      <if test="userTo != null">
+        user_to = #{userTo,jdbcType=INTEGER},
+      </if>
+      <if test="identityState != null">
+        identity_state = #{identityState,jdbcType=TINYINT},
+      </if>
+      <if test="actionState != null">
+        action_state = #{actionState,jdbcType=TINYINT},
+      </if>
+      <if test="lastUpdate != null">
+        last_update = #{lastUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="whenCreate != null">
+        when_create = #{whenCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="end != null">
+        end = #{end,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.github.mrag.helloim.domain.ImUserRelationship">
+    update im_user_relationship
+    set user_from = #{userFrom,jdbcType=INTEGER},
+      user_to = #{userTo,jdbcType=INTEGER},
+      identity_state = #{identityState,jdbcType=TINYINT},
+      action_state = #{actionState,jdbcType=TINYINT},
+      last_update = #{lastUpdate,jdbcType=TIMESTAMP},
+      when_create = #{whenCreate,jdbcType=TIMESTAMP},
+      end = #{end,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

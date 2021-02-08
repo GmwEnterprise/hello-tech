@@ -56,13 +56,13 @@
 
     <!--生成全部表tableName设为%-->
     <!--禁止生成example语法方法-->
-    <table tableName="im_user"
+    <table tableName="im_user_message"
            enableCountByExample="false" enableDeleteByExample="false"
            enableSelectByExample="false" enableUpdateByExample="false">
       <!--自增主键配置-->
       <generatedKey column="id" sqlStatement="MySql" identity="true"/>
     </table>
-    <table tableName="im_user_message"
+    <table tableName="im_user_relationship"
            enableCountByExample="false" enableDeleteByExample="false"
            enableSelectByExample="false" enableUpdateByExample="false">
       <!--自增主键配置-->

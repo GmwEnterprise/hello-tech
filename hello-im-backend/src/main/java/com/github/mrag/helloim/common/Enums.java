@@ -44,4 +44,31 @@ public final class Enums {
             return keyName;
         }
     }
+
+    public enum MessageStatus implements EnumInterface {
+
+        ALREADY_SEND(1, "消息已发送"),
+
+        SEND_FAILED(2, "消息发送失败"),
+
+        ALREADY_RECEIVED(3, "消息已接收");
+
+        private final int enumValue;
+        private final String keyName;
+
+        MessageStatus(int enumValue, String keyName) {
+            this.enumValue = enumValue;
+            this.keyName = keyName;
+        }
+
+        @Override
+        public int getEnumValue() {
+            return enumValue;
+        }
+
+        @Override
+        public String getKeyName() {
+            return keyName;
+        }
+    }
 }

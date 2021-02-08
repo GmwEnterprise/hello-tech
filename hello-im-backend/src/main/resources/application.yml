@@ -11,6 +11,10 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+logging:
+  level:
+    com.github.mrag.helloim: debug
+
 mybatis:
   mapper-locations: classpath:/mapping/**/*.xml
 

@@ -10,6 +10,8 @@ public class ImUserMessage implements Serializable {
 
     private Byte messageStatus;
 
+    private Byte answerStatus;
+
     private LocalDateTime receiveTime;
 
     private Integer sendUserId;
@@ -17,6 +19,8 @@ public class ImUserMessage implements Serializable {
     private Integer receiveUserId;
 
     private String textContent;
+
+    private LocalDateTime answerTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -42,6 +46,14 @@ public class ImUserMessage implements Serializable {
 
     public void setMessageStatus(Byte messageStatus) {
         this.messageStatus = messageStatus;
+    }
+
+    public Byte getAnswerStatus() {
+        return answerStatus;
+    }
+
+    public void setAnswerStatus(Byte answerStatus) {
+        this.answerStatus = answerStatus;
     }
 
     public LocalDateTime getReceiveTime() {
@@ -76,19 +88,31 @@ public class ImUserMessage implements Serializable {
         this.textContent = textContent;
     }
 
+    public LocalDateTime getAnswerTime() {
+        return answerTime;
+    }
+
+    public void setAnswerTime(LocalDateTime answerTime) {
+        this.answerTime = answerTime;
+    }
+
     @Override
     public String toString() {
-        return getClass().getSimpleName() +
-                " [" +
-                "Hash = " + hashCode() +
-                ", id=" + id +
-                ", sendTime=" + sendTime +
-                ", messageStatus=" + messageStatus +
-                ", receiveTime=" + receiveTime +
-                ", sendUserId=" + sendUserId +
-                ", receiveUserId=" + receiveUserId +
-                ", textContent=" + textContent +
-                ", serialVersionUID=" + serialVersionUID +
-                "]";
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", sendTime=").append(sendTime);
+        sb.append(", messageStatus=").append(messageStatus);
+        sb.append(", answerStatus=").append(answerStatus);
+        sb.append(", receiveTime=").append(receiveTime);
+        sb.append(", sendUserId=").append(sendUserId);
+        sb.append(", receiveUserId=").append(receiveUserId);
+        sb.append(", textContent=").append(textContent);
+        sb.append(", answerTime=").append(answerTime);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
 }
