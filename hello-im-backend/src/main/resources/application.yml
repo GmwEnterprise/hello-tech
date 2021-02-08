@@ -14,13 +14,13 @@ spring:
 mybatis:
   mapper-locations: classpath:/mapping/**/*.xml
 
-im-sys:
-  error-code:
-    token-expiration: 0001
-    token-invalidation: 0002
-    token-missing: 0003
-    bad-request: 0004
-    empty-parameter: 0005
-    enum-not-found: 0006
-    sing-in-error: 0007
-    system-error: 0008
+system:
+  properties:
+    errors:
+      token-expiration: 0001
+      token-missing: 0002
+      token-invalidation: 0003
+      bad-request: 0004
+      login-fail: 0005
+      internal-server-error: 0006
+      enum-not-found: 0007

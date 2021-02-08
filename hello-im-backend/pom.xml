@@ -114,6 +114,8 @@
         <executions>
           <execution>
             <id>Generate MyBatis Artifacts</id>
+            <!--避免执行mvn package/install时自动执行mybatis-generator-->
+            <phase>deploy</phase>
             <goals>
               <goal>generate</goal>
             </goals>

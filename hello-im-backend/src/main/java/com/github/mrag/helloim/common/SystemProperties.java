@@ -3,19 +3,55 @@ package com.github.mrag.helloim.common;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+/**
+ * 系统参数
+ */
 @Component
-@ConfigurationProperties(prefix = "im-sys")
+@ConfigurationProperties(prefix = "system.properties")
 public final class SystemProperties {
 
-    @Component
-    public static class ErrorCode {
+    /**
+     * 错误码
+     */
+    private Errors errors;
+
+    public Errors getErrors() {
+        return errors;
+    }
+
+    public void setErrors(Errors errors) {
+        this.errors = errors;
+    }
+
+    public static class Errors {
+
+        /**
+         * token过期
+         */
         private String tokenExpiration;
+        /**
+         * token缺失
+         */
         private String tokenMissing;
+        /**
+         * token非法
+         */
         private String tokenInvalidation;
+        /**
+         * 请求参数异常
+         */
         private String badRequest;
-        private String emptyParameter;
-        private String signInError;
-        private String systemError;
+        /**
+         * 登录失败
+         */
+        private String loginFail;
+        /**
+         * 系统错误
+         */
+        private String internalServerError;
+        /**
+         * 未找到相应枚举类型
+         */
         private String enumNotFound;
 
         public String getTokenExpiration() {
@@ -50,28 +86,20 @@ public final class SystemProperties {
             this.badRequest = badRequest;
         }
 
-        public String getEmptyParameter() {
-            return emptyParameter;
+        public String getLoginFail() {
+            return loginFail;
         }
 
-        public void setEmptyParameter(String emptyParameter) {
-            this.emptyParameter = emptyParameter;
+        public void setLoginFail(String loginFail) {
+            this.loginFail = loginFail;
         }
 
-        public String getSignInError() {
-            return signInError;
+        public String getInternalServerError() {
+            return internalServerError;
         }
 
-        public void setSignInError(String signInError) {
-            this.signInError = signInError;
-        }
-
-        public String getSystemError() {
-            return systemError;
-        }
-
-        public void setSystemError(String systemError) {
-            this.systemError = systemError;
+        public void setInternalServerError(String internalServerError) {
+            this.internalServerError = internalServerError;
         }
 
         public String getEnumNotFound() {

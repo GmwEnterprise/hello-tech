@@ -22,7 +22,8 @@ public final class Asserts {
 
     public static <T extends Enum<T>> void implementsEnumInterface(Class<T> type) {
         if (!Arrays.asList(type.getInterfaces()).contains(Enums.EnumInterface.class)) {
-            throw Exceptions.fromSystem("项目中所有枚举必须实现 com.github.mrag.helloim.common.Enums.EnumInterface 接口");
+            String message = "项目中所有枚举必须实现 com.github.mrag.helloim.common.Enums.EnumInterface 接口";
+            throw Exceptions.fromSystem(message);
         }
     }
 }
