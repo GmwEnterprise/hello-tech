@@ -35,7 +35,7 @@ public final class HttpTokenInterceptor implements HandlerInterceptor {
                 ImUserService imUserService = ComponentUtils.getBean(ImUserService.class);
                 Enums.UserStatus status = imUserService.getUserStatus(tokenInstance.getUserId(),
                                                                       tokenInstance.getUsername());
-                if (status != Enums.UserStatus.NORMAL) {
+                if (status != Enums.UserStatus.Normal) {
                     // token无效
                     throw Exceptions.tokenInvalidation();
                 }

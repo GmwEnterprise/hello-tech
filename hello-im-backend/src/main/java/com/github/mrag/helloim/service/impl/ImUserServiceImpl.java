@@ -40,6 +40,6 @@ public class ImUserServiceImpl implements ImUserService {
     @Override
     public Enums.UserStatus getUserStatus(int userId, String username) {
         // todo 待扩展
-        return Enums.UserStatus.NORMAL;
+        return Enums.UserStatus.Normal;
     }
 }

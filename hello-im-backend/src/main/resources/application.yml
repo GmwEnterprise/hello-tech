@@ -17,6 +17,8 @@ logging:
 
 mybatis:
   mapper-locations: classpath:/mapping/**/*.xml
+  configuration:
+    default-enum-type-handler: com.github.mrag.helloim.common.EnumsTypeHandler
 
 system:
   properties:
