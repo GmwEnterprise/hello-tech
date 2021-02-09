@@ -7,17 +7,21 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useStore } from './store'
+import { Mutations, useStore } from './store'
 import router from './router'
 import { tokenValidation } from './api'
 
 export default defineComponent({
   name: 'App',
-  created() {
+  beforeCreate() {
+    console.debug('App.beforeCreate')
     const store = useStore()
     if (store.state.userMsg.token) {
       // 校验token
-      tokenValidation().catch(() => router.push('/login'))
+      tokenValidation().catch(() => {
+        store.commit(Mutations.tokenUpdate, null)
+        router.push('/login')
+      })
     } else {
       router.push('/login')
     }

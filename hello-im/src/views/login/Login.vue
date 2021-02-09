@@ -41,11 +41,17 @@
 <script lang="ts">
 import { parameterValidation, HttpResponse, signOn, signIn } from '@/api'
 import router from '@/router'
+import { useStore } from '@/store'
 import { ElMessage } from 'element-plus'
 import { defineComponent, reactive, readonly, ref } from 'vue'
 
 export default defineComponent({
   name: 'Login',
+  beforeCreate() {
+    if (useStore().state.userMsg.token) {
+      router.push('/')
+    }
+  },
   setup() {
     const formData = reactive({
         username: '',

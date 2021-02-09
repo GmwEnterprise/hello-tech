@@ -1,5 +1,5 @@
 <template>
-  <i class="icon-box">
+  <i class="icon-box" v-if="type === 'icon'">
     <svg
       :class="active ? 'icon-svg-active' : 'icon-svg'"
       v-if="sessionList"
@@ -68,6 +68,27 @@
         fill="#909399"
       ></path>
     </svg>
+    <svg
+      v-if="search"
+      :class="active ? 'icon-svg-active' : 'icon-svg'"
+      t="1612850243155"
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      p-id="4630"
+      width="25"
+      height="25"
+    >
+      <path
+        d="M941.568 858.624l-176.128-176.128c46.592-62.976 71.68-138.752 71.68-217.088 0-201.216-163.84-364.544-364.544-364.544-201.216 0-364.544 163.84-364.544 364.544 0 201.216 163.84 364.544 364.544 364.544 74.752 0 148.48-23.552 209.92-67.072l177.664 177.664c14.336 14.336 37.888 14.336 52.224 0l29.696-29.696c14.336-14.336 14.336-37.888-0.512-52.224z m-469.504-142.848c-138.24 0-251.392-112.64-251.392-251.392 0-138.24 112.64-251.392 251.392-251.392 138.24 0 251.392 112.64 251.392 251.392 0 139.264-113.152 251.392-251.392 251.392z"
+        fill="#909399"
+        p-id="4631"
+      ></path>
+    </svg>
+  </i>
+  <i class="icon-box" v-if="type === 'img'">
+    <img v-if="url" :src="url" />
+    <img v-else src="../assets/images/me.jpg" />
   </i>
 </template>
 
@@ -86,6 +107,16 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    type: {
+      type: String, // icon | image
+      required: false,
+      default: 'icon',
+    },
+    url: {
+      type: String,
+      required: false,
+      default: null,
+    },
   },
   setup(props) {
     return {
@@ -93,6 +124,7 @@ export default defineComponent({
       friendList: props.name === IconName.FRIEND_LIST.toString(),
       settings: props.name === IconName.SETTINGS.toString(),
       logOut: props.name === IconName.LOG_OUT.toString(),
+      search: props.name === IconName.SEARCH.toString(),
     }
   },
 })
@@ -102,6 +134,11 @@ export default defineComponent({
 .icon-box {
   width: 25px;
   height: 25px;
+}
+i.icon-box > img {
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
+  margin: -5px;
 }
 .icon-box:hover {
   cursor: pointer;

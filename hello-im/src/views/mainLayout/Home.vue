@@ -2,6 +2,9 @@
   <div class="home-container">
     <nav class="sidebar">
       <div class="icon-button-box">
+        <icon-component name="me" type="img" />
+      </div>
+      <div class="icon-button-box">
         <icon-component
           name="sessionList"
           :active="currentTagIndex === 0"
@@ -19,6 +22,9 @@
         <icon-component name="settings" />
       </div>
       <div class="icon-button-box">
+        <icon-component name="search" />
+      </div>
+      <div class="icon-button-box">
         <icon-component name="logOut" />
       </div>
     </nav>
@@ -31,14 +37,24 @@ import { defineComponent, ref, computed } from 'vue'
 import IconComponent from '@/components/Icon.vue'
 import SessionsView from './Sessions.vue'
 import FriendsView from './Friends.vue'
+import { useStore, Actions } from '@/store'
 
 export default defineComponent({
   name: 'Home',
   components: { IconComponent, SessionsView, FriendsView },
   setup() {
+    // 动态标签切换页面
     const tags = ['sessions-view', 'friends-view'],
       currentTagIndex = ref(0),
       currentTag = computed(() => tags[currentTagIndex.value])
+
+    // 用户信息
+    const store = useStore()
+    if (store.state.userMsg.detail) {
+      // 向后端发起请求获取当前用户信息 todo
+      store.dispatch(Actions.updateCurrentUser)
+      // and?  todo
+    }
     return {
       // 动态组件
       tags,

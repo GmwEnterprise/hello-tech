@@ -1,11 +1,18 @@
+import { aboutMe } from '@/api'
 import { ContextMenuState, MenuItem } from '@/common/types'
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
+import { ImUserDto } from '@/common/types/domain.type'
 
 export const Mutations = {
   updateAndShow: 'updateAndShow',
   hide: 'hide',
   tokenUpdate: 'tokenUpdate',
+  updateCurrentUser: 'updateCurrentUser',
+}
+
+export const Actions = {
+  updateCurrentUser: 'updateCurrentUser',
 }
 
 // define your typings for the store state
@@ -21,6 +28,13 @@ export interface State {
   userMsg: {
     // 令牌
     token: string | null
+    detail?: {
+      id: number
+      username?: string
+      bindPhone?: string
+      bindEmail?: string
+      headPortraitUrl?: string
+    }
   }
 }
 
@@ -53,6 +67,22 @@ export const store = createStore<State>({
       console.debug('mutations.tokenUpdate')
       state.userMsg.token = payload
       localStorage.setItem('token', payload)
+    },
+    [Mutations.updateCurrentUser](state: State, payload: ImUserDto) {
+      state.userMsg.detail = {
+        id: payload.id,
+        username: payload.username,
+        bindPhone: payload.bindPhone,
+        bindEmail: payload.bindEmail,
+        headPortraitUrl: payload.headPortraitUrl,
+      }
+    },
+  },
+  actions: {
+    [Actions.updateCurrentUser]({ commit }) {
+      aboutMe().then((data) => {
+        commit(Mutations.updateCurrentUser, data.body)
+      })
     },
   },
 })

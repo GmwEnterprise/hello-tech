@@ -3,6 +3,7 @@ export enum IconName {
   FRIEND_LIST = 'friendList',
   SETTINGS = 'settings',
   LOG_OUT = 'logOut',
+  SEARCH = 'search',
 }
 
 export enum MessageDirection {

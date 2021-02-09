@@ -81,3 +81,10 @@ export async function signIn(params: object): Promise<HttpResponse> {
 export async function signOn(params: object): Promise<HttpResponse> {
   return (await http.post('/im-user/sign-on', params)).data
 }
+
+/**
+ * 通过令牌获取当前用户信息
+ */
+export async function aboutMe(): Promise<HttpResponse> {
+  return (await http.get('/im-user/about-me')).data
+}
