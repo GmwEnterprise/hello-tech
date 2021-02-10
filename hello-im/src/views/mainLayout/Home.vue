@@ -49,17 +49,19 @@ export default defineComponent({
       currentTag = computed(() => tags[currentTagIndex.value])
 
     // 用户信息
-    const store = useStore()
-    if (store.state.userMsg.detail) {
+    const store = useStore(),
+      userMsg = computed(() => store.state.userMsg)
+    if (!store.state.userMsg.detail) {
       // 向后端发起请求获取当前用户信息 todo
       store.dispatch(Actions.updateCurrentUser)
-      // and?  todo
     }
     return {
       // 动态组件
       tags,
       currentTagIndex,
       currentTag,
+      // 用户信息
+      userMsg,
     }
   },
 })

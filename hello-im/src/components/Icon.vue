@@ -86,7 +86,7 @@
       ></path>
     </svg>
   </i>
-  <i class="icon-box" v-if="type === 'img'">
+  <i class="icon-box" v-else>
     <img v-if="url" :src="url" />
     <img v-else src="../assets/images/me.jpg" />
   </i>

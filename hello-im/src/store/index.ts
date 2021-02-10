@@ -79,10 +79,10 @@ export const store = createStore<State>({
     },
   },
   actions: {
-    [Actions.updateCurrentUser]({ commit }) {
-      aboutMe().then((data) => {
-        commit(Mutations.updateCurrentUser, data.body)
-      })
+    async [Actions.updateCurrentUser]({ commit }) {
+      console.debug('actions.updateCurrentUser')
+      const data = await aboutMe()
+      commit(Mutations.updateCurrentUser, data.body)
     },
   },
 })
