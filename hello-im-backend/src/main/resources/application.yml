@@ -8,7 +8,7 @@ spring:
     url: jdbc:mysql://120.79.155.125:4001/hello_im?serverTimezone=Asia/Shanghai
     username: root
     password: root
-    type: com.zaxxer.hikari.HikariDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 logging:

@@ -14,6 +14,7 @@
     <mybatis.boot.version>2.1.4</mybatis.boot.version>
     <mybatis.generator.version>1.4.0</mybatis.generator.version>
     <jwt.version>0.9.1</jwt.version>
+    <druid.version>1.2.4</druid.version>
   </properties>
 
   <dependencyManagement>
@@ -29,6 +30,12 @@
   </dependencyManagement>
 
   <dependencies>
+
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid-spring-boot-starter</artifactId>
+      <version>${druid.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
