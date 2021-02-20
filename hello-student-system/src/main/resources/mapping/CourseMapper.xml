@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.studentsystem.dao.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.example.studentsystem.domain.Course">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="academy" jdbcType="INTEGER" property="academy" />
+    <result column="required" jdbcType="BIT" property="required" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, course_name, score, academy, required
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.studentsystem.domain.Course">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course (course_name, score, academy, 
+      required)
+    values (#{courseName,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{academy,jdbcType=INTEGER}, 
+      #{required,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.studentsystem.domain.Course">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseName != null">
+        course_name,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="academy != null">
+        academy,
+      </if>
+      <if test="required != null">
+        required,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseName != null">
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="academy != null">
+        #{academy,jdbcType=INTEGER},
+      </if>
+      <if test="required != null">
+        #{required,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.studentsystem.domain.Course">
+    update course
+    <set>
+      <if test="courseName != null">
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="academy != null">
+        academy = #{academy,jdbcType=INTEGER},
+      </if>
+      <if test="required != null">
+        required = #{required,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.studentsystem.domain.Course">
+    update course
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      academy = #{academy,jdbcType=INTEGER},
+      required = #{required,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

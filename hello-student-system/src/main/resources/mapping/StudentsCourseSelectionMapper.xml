@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.studentsystem.dao.StudentsCourseSelectionMapper">
+  <resultMap id="BaseResultMap" type="com.example.studentsystem.domain.StudentsCourseSelection">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="student" jdbcType="INTEGER" property="student" />
+    <result column="course" jdbcType="INTEGER" property="course" />
+    <result column="selected_time" jdbcType="TIMESTAMP" property="selectedTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="pass" jdbcType="BIT" property="pass" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, student, course, selected_time, status, pass
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from students_course_selection
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from students_course_selection
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.studentsystem.domain.StudentsCourseSelection">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into students_course_selection (student, course, selected_time, 
+      status, pass)
+    values (#{student,jdbcType=INTEGER}, #{course,jdbcType=INTEGER}, #{selectedTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{pass,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.studentsystem.domain.StudentsCourseSelection">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into students_course_selection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="student != null">
+        student,
+      </if>
+      <if test="course != null">
+        course,
+      </if>
+      <if test="selectedTime != null">
+        selected_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="pass != null">
+        pass,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="student != null">
+        #{student,jdbcType=INTEGER},
+      </if>
+      <if test="course != null">
+        #{course,jdbcType=INTEGER},
+      </if>
+      <if test="selectedTime != null">
+        #{selectedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="pass != null">
+        #{pass,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.studentsystem.domain.StudentsCourseSelection">
+    update students_course_selection
+    <set>
+      <if test="student != null">
+        student = #{student,jdbcType=INTEGER},
+      </if>
+      <if test="course != null">
+        course = #{course,jdbcType=INTEGER},
+      </if>
+      <if test="selectedTime != null">
+        selected_time = #{selectedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="pass != null">
+        pass = #{pass,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.studentsystem.domain.StudentsCourseSelection">
+    update students_course_selection
+    set student = #{student,jdbcType=INTEGER},
+      course = #{course,jdbcType=INTEGER},
+      selected_time = #{selectedTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      pass = #{pass,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
