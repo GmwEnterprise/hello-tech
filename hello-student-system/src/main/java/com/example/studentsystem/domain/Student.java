@@ -19,6 +19,10 @@ public class Student implements Serializable {
 
     private Enums.StudentStatus status;
 
+    // 查询参数
+
+    private Academy academyEntity;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -84,5 +88,13 @@ public class Student implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Academy getAcademyEntity() {
+        return academyEntity;
+    }
+
+    public void setAcademyEntity(Academy academyEntity) {
+        this.academyEntity = academyEntity;
     }
 }

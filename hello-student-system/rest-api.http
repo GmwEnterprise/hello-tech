@@ -1,1 +1,1 @@
-GET http://localhost:5000/api/student/list?name=甘明玮
+GET http://localhost:5000/api/student/list?name=甘

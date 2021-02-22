@@ -18,7 +18,7 @@
     from student
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectByCondition" resultMap="BaseResultMap">
+  <select id="selectByCondition" resultType="com.example.studentsystem.domain.Student">
     select
     <include refid="Base_Column_List" />
     from student

@@ -37,7 +37,9 @@
 </template>
 <script>
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+import { message } from 'ant-design-vue'
 import { defineComponent, reactive } from 'vue'
+import router from '../router'
 export default defineComponent({
   setup() {
     const formState = reactive({
@@ -45,8 +47,13 @@ export default defineComponent({
       password: '',
     })
 
-    const handleFinish = (values) => {
-      console.log(values, formState)
+    const handleFinish = () => {
+      if (formState.user === 'admin' && formState.password === 'admin') {
+        message.success('登录成功')
+        router.push('/home')
+      } else {
+        message.error('登录失败，请输入正确的账户密码')
+      }
     }
 
     const handleFinishFailed = (errors) => {
@@ -66,3 +73,12 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+div#login {
+  display: grid;
+  place-content: center;
+  width: 100%;
+  height: 80vh;
+}
+</style>
