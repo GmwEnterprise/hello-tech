@@ -9,6 +9,10 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      max-lifetime: 600000 # 毫秒
+      minimum-idle: 3 # 最小连接数，保障库中始终有这么几条连接
+      connection-test-query: select 1
 mybatis:
   mapper-locations: classpath:/mapping/*.xml
   configuration:

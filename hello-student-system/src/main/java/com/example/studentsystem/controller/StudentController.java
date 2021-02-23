@@ -24,8 +24,16 @@ public class StudentController {
         return new PageInfo<>(studentMapper.selectByCondition(condition));
     }
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     public void addStudent(@RequestBody Student student) {
-        studentMapper.insertSelective(student);
+        if (student.getId() == null)
+            studentMapper.insertSelective(student);
+        else
+            studentMapper.updateByPrimaryKeySelective(student);
+    }
+
+    @PostMapping("/delete/{id}")
+    public void deleteLine(@PathVariable("id") Integer id) {
+        studentMapper.deleteByPrimaryKey(id);
     }
 }

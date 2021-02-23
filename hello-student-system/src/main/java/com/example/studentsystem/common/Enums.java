@@ -1,5 +1,6 @@
 package com.example.studentsystem.common;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
@@ -13,11 +14,14 @@ import java.util.Arrays;
 
 public final class Enums {
 
+    // @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     public interface EnumInterface {
 
-        String key();
+        // FIXME 当前系统只能按照name来进行枚举的序列化以及反序列化，缺少一种更好的方式
+        @JsonValue
+        String getName();
 
-        int value();
+        int getValue();
     }
 
     @SuppressWarnings("unchecked")
@@ -25,7 +29,7 @@ public final class Enums {
         Asserts.implementsEnumInterface(type);
         return (T) Arrays.stream(type.getEnumConstants())
                          .map(source -> ((EnumInterface) source))
-                         .filter(item -> item.value() == value)
+                         .filter(item -> item.getValue() == value)
                          .findFirst().orElseThrow(() -> new RuntimeException("未找到对应枚举"));
     }
 
@@ -34,21 +38,21 @@ public final class Enums {
         Learning(1, "学业进行中"),
         Graduated(2, "已毕业");
 
-        StudentStatus(int value, String key) {
-            this.key = key;
+        StudentStatus(int value, String name) {
+            this.name = name;
             this.value = value;
         }
 
         private final int value;
-        private final String key;
+        private final String name;
 
         @Override
-        public String key() {
-            return key;
+        public String getName() {
+            return name;
         }
 
         @Override
-        public int value() {
+        public int getValue() {
             return value;
         }
     }
@@ -58,21 +62,21 @@ public final class Enums {
         CourseLearning(1, "课程学习中"),
         Finished(2, "课程学习结束");
 
-        CourseSelectionStatus(int value, String key) {
-            this.key = key;
+        CourseSelectionStatus(int value, String name) {
+            this.name = name;
             this.value = value;
         }
 
         private final int value;
-        private final String key;
+        private final String name;
 
         @Override
-        public String key() {
-            return key;
+        public String getName() {
+            return name;
         }
 
         @Override
-        public int value() {
+        public int getValue() {
             return value;
         }
     }
@@ -91,7 +95,7 @@ public final class Enums {
 
         @Override
         public void setNonNullParameter(PreparedStatement ps, int i, E parameter, JdbcType jdbcType) throws SQLException {
-            ps.setInt(i, ((Enums.EnumInterface) parameter).value());
+            ps.setInt(i, ((Enums.EnumInterface) parameter).getValue());
         }
 
         @Override

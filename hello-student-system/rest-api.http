@@ -1,1 +1,10 @@
-GET http://localhost:5000/api/student/list?name=甘
+GET http://localhost:5000/api/student/list
+
+###
+
+POST http://localhost:5000/api/student/save
+Content-Type: application/json
+
+{
+  "status": "学业进行中"
+}

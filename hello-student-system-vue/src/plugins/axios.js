@@ -39,6 +39,4 @@ _axios.interceptors.response.use(
   },
 )
 
-export default {
-  http: _axios,
-}
+export default _axios

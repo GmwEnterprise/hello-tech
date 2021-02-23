@@ -8,23 +8,29 @@
     <result column="enrollment_date" jdbcType="DATE" property="enrollmentDate" />
     <result column="academy" jdbcType="INTEGER" property="academy" />
     <result column="status" jdbcType="TINYINT" property="status" />
+    <!-- 查询属性 -->
+    <association property="academyEntity" javaType="com.example.studentsystem.domain.Academy">
+      <!--<id column="academy_id" property="id" />-->
+      <result column="academy_name" property="academyName" />
+    </association>
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, birthday, enrollment_date, academy, status
+    a.id, a.name, a.birthday, a.enrollment_date, a.academy, a.status
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from student
-    where id = #{id,jdbcType=INTEGER}
+    from student a
+    where a.id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectByCondition" resultType="com.example.studentsystem.domain.Student">
+  <select id="selectByCondition" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from student
+    , b.academy_name
+    from student a inner join academy b on a.academy = b.id
     <where>
       <if test="name != null and name != ''">
-        and name like concat('%', #{name}, '%')
+        and a.name like concat('%', #{name}, '%')
       </if>
     </where>
   </select>
