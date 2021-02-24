@@ -74,7 +74,6 @@
 <script>
 import { onMounted, readonly, ref, reactive, inject } from 'vue'
 import http from '../../plugins/axios'
-import { message } from 'ant-design-vue'
 const columnsVal = [
   {
     title: '编号',
@@ -138,7 +137,6 @@ export default {
           dataSource.value = res.data.list
           page.total = res.data.total
         })
-        .catch(errorHandler)
     }
 
     const onShowSizeChange = (_current, size) => {
@@ -155,7 +153,6 @@ export default {
 
     const deleteLine = (id) => {
       http.post('/student/delete/' + id).then(() => {
-        message.info('删除成功')
         page.pageNum = 1
         pageChange(page.pageNum, page.pageSize)
       })

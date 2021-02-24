@@ -3,6 +3,8 @@ package com.example.studentsystem.dao;
 import com.example.studentsystem.domain.Academy;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AcademyMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +18,6 @@ public interface AcademyMapper {
     int updateByPrimaryKeySelective(Academy record);
 
     int updateByPrimaryKey(Academy record);
+
+    List<Academy> selectAll();
 }
