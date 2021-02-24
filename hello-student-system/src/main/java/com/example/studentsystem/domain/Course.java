@@ -13,6 +13,10 @@ public class Course implements Serializable {
 
     private Boolean required;
 
+    // 查询参数
+
+    private Academy academyEntity;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -69,5 +73,13 @@ public class Course implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Academy getAcademyEntity() {
+        return academyEntity;
+    }
+
+    public void setAcademyEntity(Academy academyEntity) {
+        this.academyEntity = academyEntity;
     }
 }

@@ -8,15 +8,20 @@ import java.time.LocalDateTime;
 public class StudentsCourseSelection implements Serializable {
     private Integer id;
 
-    private Integer student;
+    private Integer student; // 学生主键
 
-    private Integer course;
+    private Integer course; // 课程主键
 
     private LocalDateTime selectedTime;
 
-    private Enums.CourseSelectionStatus status;
+    private Enums.CourseSelectionStatus status; // 选课情况
 
-    private Boolean pass;
+    private Boolean pass; // 是否合格
+
+    // 查询信息
+
+    private Student studentEntity;
+    private Course courseEntity;
 
     private static final long serialVersionUID = 1L;
 
@@ -83,5 +88,21 @@ public class StudentsCourseSelection implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Student getStudentEntity() {
+        return studentEntity;
+    }
+
+    public void setStudentEntity(Student studentEntity) {
+        this.studentEntity = studentEntity;
+    }
+
+    public Course getCourseEntity() {
+        return courseEntity;
+    }
+
+    public void setCourseEntity(Course courseEntity) {
+        this.courseEntity = courseEntity;
     }
 }

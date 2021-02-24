@@ -3,18 +3,18 @@
     <a-button type="primary" @click="modalVisible = true"
       >添加学籍信息</a-button
     >
-    <a-modal v-model:visible="modalVisible" title="信息编辑" @ok="addRecord">
+    <a-modal v-model:visible="modalVisible" title="信息编辑" @ok="saveRecord">
       <a-form
-        :model="newRecord"
+        :model="currentRecord"
         :label-col="{ span: 5 }"
         :wrapper-col="{ span: 14 }"
       >
         <a-form-item label="姓名">
-          <a-input v-model:value="newRecord.name" />
+          <a-input v-model:value="currentRecord.name" />
         </a-form-item>
         <a-form-item label="出生日期">
           <a-date-picker
-            v-model:value="newRecord.birthday"
+            v-model:value="currentRecord.birthday"
             type="date"
             placeholder="选择日期"
             style="width: 100%"
@@ -22,7 +22,7 @@
         </a-form-item>
         <a-form-item label="入学日期">
           <a-date-picker
-            v-model:value="newRecord.enrollmentDate"
+            v-model:value="currentRecord.enrollmentDate"
             type="date"
             placeholder="选择日期"
             style="width: 100%"
@@ -30,7 +30,7 @@
         </a-form-item>
         <a-form-item label="入学学院选择">
           <a-select
-            v-model:value="newRecord.academy"
+            v-model:value="currentRecord.academy"
             style="width: 120px"
             ref="academySelect"
           >
@@ -53,6 +53,7 @@
     :pagination="false"
     ><template #operation="{ record }">
       <div class="editable-row-operations">
+        <a @click="editLine(record.id)">修改</a>
         <a @click="deleteLine(record.id)">删除</a>
       </div>
     </template>
@@ -162,29 +163,33 @@ export default {
     }
 
     const modalVisible = ref(false),
-      newRecord = reactive({
+      currentRecord = reactive({
         name: '',
         birthday: null,
         enrollmentDate: null,
         academy: null,
       })
 
-    const addRecord = () => {
-      console.debug(newRecord)
+    const saveRecord = () => {
+      console.debug(currentRecord)
       http
         .post('/student/save', {
-          name: newRecord.name,
-          birthday: newRecord.birthday
-            ? newRecord.birthday.format('YYYY-MM-DD HH:mm:ss')
+          name: currentRecord.name,
+          birthday: currentRecord.birthday
+            ? currentRecord.birthday.format('YYYY-MM-DD HH:mm:ss')
             : null,
-          enrollmentDate: newRecord.enrollmentDate
-            ? newRecord.enrollmentDate.format('YYYY-MM-DD')
+          enrollmentDate: currentRecord.enrollmentDate
+            ? currentRecord.enrollmentDate.format('YYYY-MM-DD')
             : null,
-          academy: newRecord.academy,
+          academy: currentRecord.academy,
         })
         .then(refreshData)
         .catch(errorHandler)
       modalVisible.value = false
+    }
+
+    const editLine = (id) => {
+      console.log('修改line，id=' + id)
     }
 
     return {
@@ -195,8 +200,9 @@ export default {
       onShowSizeChange,
       deleteLine,
       modalVisible,
-      newRecord,
-      addRecord,
+      currentRecord,
+      saveRecord,
+      editLine,
       academyList: inject('academyList'),
     }
   },

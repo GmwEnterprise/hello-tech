@@ -8,15 +8,29 @@
     <result column="selected_time" jdbcType="TIMESTAMP" property="selectedTime" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="pass" jdbcType="BIT" property="pass" />
+    <association property="studentEntity" javaType="com.example.studentsystem.domain.Student">
+      <result column="student_name" property="name" />
+    </association>
+    <association property="courseEntity" javaType="com.example.studentsystem.domain.Course">
+      <result column="course_name" property="courseName" />
+    </association>
   </resultMap>
   <sql id="Base_Column_List">
-    id, student, course, selected_time, status, pass
+    a.id, a.student, a.course, a.selected_time, a.status, a.pass
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from students_course_selection
-    where id = #{id,jdbcType=INTEGER}
+    from students_course_selection a
+    where a.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    , b.name student_name, c.course_name
+    from students_course_selection a
+    inner join student b on a.student = b.id
+    inner join course c on a.course = c.id
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from students_course_selection
