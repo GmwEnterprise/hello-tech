@@ -8,6 +8,8 @@
     <result column="selected_time" jdbcType="TIMESTAMP" property="selectedTime" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="pass" jdbcType="BIT" property="pass" />
+    <result column="student_status" property="studentStatus" />
+    <result column="score_total" property="scoreTotal" />
     <association property="studentEntity" javaType="com.example.studentsystem.domain.Student">
       <result column="student_name" property="name" />
     </association>
@@ -31,6 +33,16 @@
     from students_course_selection a
     inner join student b on a.student = b.id
     inner join course c on a.course = c.id
+  </select>
+  <select id="selectStudentStatus" resultMap="BaseResultMap">
+    select a.status student_status,
+           b.pass,
+           b.status,
+           c.score  score_total
+    from student a
+             inner join students_course_selection b on a.id = b.student
+             inner join course c on b.course = c.id
+    where a.id = #{studentId}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from students_course_selection

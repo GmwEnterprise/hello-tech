@@ -22,6 +22,7 @@ public class Student implements Serializable {
     // 查询参数
 
     private Academy academyEntity;
+    private Integer score;
 
     private static final long serialVersionUID = 1L;
 
@@ -96,5 +97,13 @@ public class Student implements Serializable {
 
     public void setAcademyEntity(Academy academyEntity) {
         this.academyEntity = academyEntity;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }

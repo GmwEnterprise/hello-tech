@@ -20,4 +20,6 @@ public interface StudentMapper {
     int updateByPrimaryKey(Student record);
 
     List<Student> selectByCondition(Student condition);
+
+    List<Student> selectGraduationList();
 }

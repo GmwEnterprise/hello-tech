@@ -9,6 +9,7 @@
     <result column="academy" jdbcType="INTEGER" property="academy" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <!-- 查询属性 -->
+    <result property="score" column="score" />
     <association property="academyEntity" javaType="com.example.studentsystem.domain.Academy">
       <!--<id column="academy_id" property="id" />-->
       <result column="academy_name" property="academyName" />
@@ -18,7 +19,7 @@
     a.id, a.name, a.birthday, a.enrollment_date, a.academy, a.status
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from student a
     where a.id = #{id,jdbcType=INTEGER}
@@ -34,6 +35,18 @@
       </if>
     </where>
   </select>
+  <select id="selectGraduationList" resultMap="BaseResultMap">
+    select m.id, m.name, m.enrollment_date, y.academy_name, ifnull(stu.score, 0) score, m.status
+    from student m
+             inner join academy y on m.academy = y.id
+             left join
+         (select a.student, sum(b.score) score
+          from students_course_selection a
+                   inner join course b on a.course = b.id
+          where a.pass = 1
+            and a.status = 2
+          group by a.student) stu on m.id = stu.student
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from student
     where id = #{id,jdbcType=INTEGER}
@@ -42,9 +55,9 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into student (name, birthday, enrollment_date, 
+    insert into student (name, birthday, enrollment_date,
       academy, status)
-    values (#{name,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, #{enrollmentDate,jdbcType=DATE}, 
+    values (#{name,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, #{enrollmentDate,jdbcType=DATE},
       #{academy,jdbcType=INTEGER}, #{status,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.example.studentsystem.domain.Student">

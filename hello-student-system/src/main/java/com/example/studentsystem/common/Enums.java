@@ -59,8 +59,8 @@ public final class Enums {
 
     // 选课情况，[1]课程进行中[2]课程结束
     public enum CourseSelectionStatus implements EnumInterface {
-        CourseLearning(1, "课程学习中"),
-        Finished(2, "课程学习结束");
+        CourseLearning(1, "开课中"),
+        Finished(2, "课程完结");
 
         CourseSelectionStatus(int value, String name) {
             this.name = name;

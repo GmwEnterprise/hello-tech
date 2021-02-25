@@ -23,6 +23,9 @@ public class StudentsCourseSelection implements Serializable {
     private Student studentEntity;
     private Course courseEntity;
 
+    private Enums.StudentStatus studentStatus;
+    private Integer scoreTotal;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -104,5 +107,21 @@ public class StudentsCourseSelection implements Serializable {
 
     public void setCourseEntity(Course courseEntity) {
         this.courseEntity = courseEntity;
+    }
+
+    public Enums.StudentStatus getStudentStatus() {
+        return studentStatus;
+    }
+
+    public void setStudentStatus(Enums.StudentStatus studentStatus) {
+        this.studentStatus = studentStatus;
+    }
+
+    public Integer getScoreTotal() {
+        return scoreTotal;
+    }
+
+    public void setScoreTotal(Integer scoreTotal) {
+        this.scoreTotal = scoreTotal;
     }
 }

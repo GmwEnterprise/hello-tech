@@ -49,8 +49,8 @@
             name="courseSelectionStatus"
             v-model:value="currentRecord.status"
           >
-            <a-radio value="课程学习中">开课中</a-radio>
-            <a-radio value="课程学习结束">结束</a-radio>
+            <a-radio value="开课中">开课中</a-radio>
+            <a-radio value="课程完结">结束</a-radio>
           </a-radio-group>
         </a-form-item>
         <a-form-item label="是否合格">
@@ -71,7 +71,10 @@
     :columns="columns"
     bordered
     :pagination="false"
-    ><template #operation="{ record }">
+    ><template #pass="{ text }">
+      <span>{{ text ? '合格' : '不合格' }}</span>
+    </template>
+    <template #operation="{ record }">
       <div class="editable-row-operations">
         <a @click="editLine(record.id)">修改</a>
         <a @click="deleteLine(record.id)">删除</a>
@@ -126,6 +129,7 @@ const columnsVal = [
     title: '是否合格',
     dataIndex: 'pass',
     key: 'pass',
+    slots: { customRender: 'pass' },
   },
   {
     title: '操作',
@@ -187,7 +191,7 @@ export default {
         student: null, // int
         course: null, // int
         selectedTime: null, // Moment
-        status: '课程学习中',
+        status: '开课中',
         pass: false,
 
         // courseList下标
