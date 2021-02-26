@@ -1,6 +1,7 @@
 package com.github.mrag.helloim.domain;
 
-import com.github.mrag.helloim.common.Enums;
+import com.github.mrag.helloim.common.enums.ActionState;
+import com.github.mrag.helloim.common.enums.IdentityState;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,9 +13,9 @@ public class ImUserRelationship implements Serializable {
 
     private Integer userTo;
 
-    private Enums.IdentityState identityState;
+    private IdentityState identityState;
 
-    private Enums.ActionState actionState;
+    private ActionState actionState;
 
     private LocalDateTime lastUpdate;
 
@@ -48,19 +49,19 @@ public class ImUserRelationship implements Serializable {
         this.userTo = userTo;
     }
 
-    public Enums.IdentityState getIdentityState() {
+    public IdentityState getIdentityState() {
         return identityState;
     }
 
-    public void setIdentityState(Enums.IdentityState identityState) {
+    public void setIdentityState(IdentityState identityState) {
         this.identityState = identityState;
     }
 
-    public Enums.ActionState getActionState() {
+    public ActionState getActionState() {
         return actionState;
     }
 
-    public void setActionState(Enums.ActionState actionState) {
+    public void setActionState(ActionState actionState) {
         this.actionState = actionState;
     }
 

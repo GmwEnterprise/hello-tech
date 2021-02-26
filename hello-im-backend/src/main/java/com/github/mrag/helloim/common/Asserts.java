@@ -1,5 +1,6 @@
 package com.github.mrag.helloim.common;
 
+import com.github.mrag.helloim.common.enums.EnumInterface;
 import com.github.mrag.helloim.domain.ImUser;
 
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ public final class Asserts {
     }
 
     public static <T extends Enum<T>> void implementsEnumInterface(Class<T> type) {
-        if (!Arrays.asList(type.getInterfaces()).contains(Enums.EnumInterface.class)) {
-            String message = "项目中所有枚举必须实现 com.github.mrag.helloim.common.Enums.EnumInterface 接口";
+        if (!Arrays.asList(type.getInterfaces()).contains(EnumInterface.class)) {
+            String message = "项目中所有枚举必须实现 com.github.mrag.helloim.common.enums.Enums.EnumInterface 接口";
             throw Exceptions.fromSystem(message);
         }
     }

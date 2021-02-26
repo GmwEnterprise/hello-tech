@@ -1,9 +1,9 @@
 package com.github.mrag.helloim.service.impl;
 
-import com.github.mrag.helloim.common.Enums;
 import com.github.mrag.helloim.common.Exceptions;
 import com.github.mrag.helloim.common.HttpToken;
 import com.github.mrag.helloim.common.HttpTokenUtils;
+import com.github.mrag.helloim.common.enums.UserStatus;
 import com.github.mrag.helloim.dao.ImUserMapper;
 import com.github.mrag.helloim.domain.ImUser;
 import com.github.mrag.helloim.service.ImUserService;
@@ -38,8 +38,8 @@ public class ImUserServiceImpl implements ImUserService {
     }
 
     @Override
-    public Enums.UserStatus getUserStatus(int userId, String username) {
+    public UserStatus getUserStatus(int userId, String username) {
         // todo 待扩展
-        return Enums.UserStatus.Normal;
+        return UserStatus.Normal;
     }
 }

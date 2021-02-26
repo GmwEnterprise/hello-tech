@@ -1,6 +1,7 @@
 package com.github.mrag.helloim.interceptors;
 
 import com.github.mrag.helloim.common.*;
+import com.github.mrag.helloim.common.enums.UserStatus;
 import com.github.mrag.helloim.service.ImUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,9 +34,9 @@ public final class HttpTokenInterceptor implements HandlerInterceptor {
                     throw Exceptions.tokenExpiration();
                 }
                 ImUserService imUserService = ComponentUtils.getBean(ImUserService.class);
-                Enums.UserStatus status = imUserService.getUserStatus(tokenInstance.getUserId(),
-                                                                      tokenInstance.getUsername());
-                if (status != Enums.UserStatus.Normal) {
+                UserStatus status = imUserService.getUserStatus(tokenInstance.getUserId(),
+                                                                tokenInstance.getUsername());
+                if (status != UserStatus.Normal) {
                     // token无效
                     throw Exceptions.tokenInvalidation();
                 }

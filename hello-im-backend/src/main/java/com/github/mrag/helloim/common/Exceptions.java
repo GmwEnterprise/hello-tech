@@ -43,7 +43,7 @@ public final class Exceptions {
         return exp;
     }
 
-    public static <T extends Enum<T>> GlobalException enumNotFound(Class<T> type, int value) {
+    public static <T> GlobalException enumNotFound(Class<T> type, int value) {
         String message = String.format("未找到相应枚举值:[%s(%d)]", type.getSimpleName(), value);
         GlobalException exp = new GlobalException(getProps().getErrors().getEnumNotFound(), message);
         log.error(message, exp);

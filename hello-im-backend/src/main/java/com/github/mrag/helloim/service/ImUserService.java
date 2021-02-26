@@ -1,6 +1,6 @@
 package com.github.mrag.helloim.service;
 
-import com.github.mrag.helloim.common.Enums;
+import com.github.mrag.helloim.common.enums.UserStatus;
 import com.github.mrag.helloim.domain.ImUser;
 
 public interface ImUserService {
@@ -11,5 +11,5 @@ public interface ImUserService {
 
     String signOn(ImUser user);
 
-    Enums.UserStatus getUserStatus(int userId, String username);
+    UserStatus getUserStatus(int userId, String username);
 }

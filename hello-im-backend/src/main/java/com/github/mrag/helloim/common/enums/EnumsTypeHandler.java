@@ -1,5 +1,6 @@
-package com.github.mrag.helloim.common;
+package com.github.mrag.helloim.common.enums;
 
+import com.github.mrag.helloim.common.Asserts;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
@@ -10,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@MappedTypes({Enums.AnswerStatus.class, Enums.MessageStatus.class})
+@MappedTypes({AnswerStatus.class, MessageStatus.class})
 @MappedJdbcTypes(JdbcType.TINYINT)
 public class EnumsTypeHandler<E extends Enum<E>> extends BaseTypeHandler<E> {
 
@@ -24,22 +25,22 @@ public class EnumsTypeHandler<E extends Enum<E>> extends BaseTypeHandler<E> {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, E parameter, JdbcType jdbcType) throws SQLException {
-        ps.setInt(i, ((Enums.EnumInterface) parameter).getEnumValue());
+        ps.setInt(i, ((EnumInterface) parameter).getValue());
     }
 
     @Override
     public E getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        return Enums.find(type, rs.getInt(columnName));
+        return EnumOperator.find(type, rs.getInt(columnName));
     }
 
     @Override
     public E getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-        return Enums.find(type, rs.getInt(columnIndex));
+        return EnumOperator.find(type, rs.getInt(columnIndex));
     }
 
     @Override
     public E getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-        return Enums.find(type, cs.getInt(columnIndex));
+        return EnumOperator.find(type, cs.getInt(columnIndex));
     }
 }
 

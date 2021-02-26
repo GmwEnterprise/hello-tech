@@ -3,4 +3,9 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwic3ViIjoiTXJhZyIsImlhdCI6MTYx
 
 ###
 
-GET http://localhost:4200/hello-im/im-user/sign-in
+GET http://localhost:4200/hello-im/api/test/enums
+Content-Type: application/json
+
+{
+  "messageStatus": 3
+}

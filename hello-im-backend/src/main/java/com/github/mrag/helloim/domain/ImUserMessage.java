@@ -1,6 +1,7 @@
 package com.github.mrag.helloim.domain;
 
-import com.github.mrag.helloim.common.Enums;
+import com.github.mrag.helloim.common.enums.AnswerStatus;
+import com.github.mrag.helloim.common.enums.MessageStatus;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -10,9 +11,9 @@ public class ImUserMessage implements Serializable {
 
     private LocalDateTime sendTime;
 
-    private Enums.MessageStatus messageStatus;
+    private MessageStatus messageStatus;
 
-    private Enums.AnswerStatus answerStatus;
+    private AnswerStatus answerStatus;
 
     private LocalDateTime receiveTime;
 
@@ -42,19 +43,19 @@ public class ImUserMessage implements Serializable {
         this.sendTime = sendTime;
     }
 
-    public Enums.MessageStatus getMessageStatus() {
+    public MessageStatus getMessageStatus() {
         return messageStatus;
     }
 
-    public void setMessageStatus(Enums.MessageStatus messageStatus) {
+    public void setMessageStatus(MessageStatus messageStatus) {
         this.messageStatus = messageStatus;
     }
 
-    public Enums.AnswerStatus getAnswerStatus() {
+    public AnswerStatus getAnswerStatus() {
         return answerStatus;
     }
 
-    public void setAnswerStatus(Enums.AnswerStatus answerStatus) {
+    public void setAnswerStatus(AnswerStatus answerStatus) {
         this.answerStatus = answerStatus;
     }
 
