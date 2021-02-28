@@ -15,4 +15,10 @@ public class TestController {
         result.setMessageStatus(MessageStatus.AlreadyReceived);
         return result;
     }
+
+    @GetMapping("/enums1")
+    public MessageStatus testEnums1(@RequestBody(required = false) ImUserMessage body) {
+        System.out.println(body.getMessageStatus());
+        return MessageStatus.AlreadyReceived;
+    }
 }

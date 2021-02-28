@@ -9,3 +9,12 @@ Content-Type: application/json
 {
   "messageStatus": 3
 }
+
+###
+
+GET http://localhost:4200/hello-im/api/test/enums1
+Content-Type: application/json
+
+{
+  "messageStatus": 3
+}
