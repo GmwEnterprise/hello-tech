@@ -1,9 +1,6 @@
 package com.github.mrag.helloim.common.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.github.mrag.helloim.common.Exceptions;
-
-import java.util.Arrays;
 
 // 消息应答情况：[0]非应答消息, [1]未应答， [2]已应答
 public enum AnswerStatus implements EnumInterface {
@@ -34,9 +31,6 @@ public enum AnswerStatus implements EnumInterface {
 
     @JsonCreator
     public static AnswerStatus find(int value) {
-        return Arrays.stream(values())
-                     .filter(item -> item.value == value)
-                     .findFirst()
-                     .orElseThrow(() -> Exceptions.enumNotFound(AnswerStatus.class, value));
+        return EnumInterface.find(values(), value);
     }
 }

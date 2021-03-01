@@ -1,9 +1,6 @@
 package com.github.mrag.helloim.common.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.github.mrag.helloim.common.Exceptions;
-
-import java.util.Arrays;
 
 // 用户B对于用户A的身份：[1]好友, [2]黑名单
 public enum IdentityState implements EnumInterface {
@@ -32,10 +29,7 @@ public enum IdentityState implements EnumInterface {
 
     @JsonCreator
     public static IdentityState find(int value) {
-        return Arrays.stream(values())
-                     .filter(item -> item.value == value)
-                     .findFirst()
-                     .orElseThrow(() -> Exceptions.enumNotFound(IdentityState.class, value));
+        return EnumInterface.find(values(), value);
     }
 }
 

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class Main3 {
+public class Main3JsonRawValue {
     public static void main(String[] args) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         String json = "{\"attr\":false}";
@@ -18,7 +18,7 @@ public class Main3 {
     public static class People {
         private Integer id;
 
-        // @JsonRawValue
+        @JsonRawValue
         private String json;
 
         public Integer getId() {

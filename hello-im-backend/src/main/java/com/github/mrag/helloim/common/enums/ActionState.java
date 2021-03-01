@@ -1,9 +1,6 @@
 package com.github.mrag.helloim.common.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.github.mrag.helloim.common.Exceptions;
-
-import java.util.Arrays;
 
 // 用户A对用户B的消息权限：[1]接收消息, [2]屏蔽消息, [3]特别关心
 public enum ActionState implements EnumInterface {
@@ -34,9 +31,6 @@ public enum ActionState implements EnumInterface {
 
     @JsonCreator
     public static ActionState find(int value) {
-        return Arrays.stream(values())
-                     .filter(item -> item.value == value)
-                     .findFirst()
-                     .orElseThrow(() -> Exceptions.enumNotFound(ActionState.class, value));
+        return EnumInterface.find(values(), value);
     }
 }
