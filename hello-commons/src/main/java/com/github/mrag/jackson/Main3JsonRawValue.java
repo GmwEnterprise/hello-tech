@@ -18,7 +18,6 @@ public class Main3JsonRawValue {
     public static class People {
         private Integer id;
 
-        @JsonRawValue
         private String json;
 
         public Integer getId() {
@@ -29,6 +28,7 @@ public class Main3JsonRawValue {
             this.id = id;
         }
 
+        @JsonRawValue
         public String getJson() {
             return json;
         }
