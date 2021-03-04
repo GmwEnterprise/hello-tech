@@ -1,30 +1,32 @@
 package com.github.mrag.jackson;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class Main7JsonCreator {
+public class Main9JsonIgnoreProperties2 {
     public static void main(String[] args) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        String content = "{\"no\":100,\"title\":\"Fucker\"}";
-        Domain domain = mapper.readValue(content, Domain.class);
-        assert domain.id == 100;
-        assert domain.name.equals("Fucker");
+        Domain domain = new Domain();
+        domain.setId(1000);
+        domain.setName("Thinkpad");
+
+        System.out.println(mapper.writeValueAsString(domain));
+        // output: {"id":1000,"name":"Thinkpad"}
+
+        String content = "{\"id\":1000,\"name\":\"Thinkpad\"}";
+        Domain result = mapper.readValue(content, Domain.class);
+        System.out.println(result.name);
     }
 
     public static class Domain {
-        private Integer id;
-        private String name;
 
-        @JsonCreator
-        public Domain(@JsonProperty Integer no,
-                      @JsonProperty String title) {
-            this.id = no;
-            this.name = title;
-        }
+        private Integer id;
+
+        @JsonIgnore
+        private String name;
 
         public Integer getId() {
             return id;

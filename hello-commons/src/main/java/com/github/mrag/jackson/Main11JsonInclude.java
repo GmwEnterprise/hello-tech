@@ -1,30 +1,26 @@
 package com.github.mrag.jackson;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class Main7JsonCreator {
+public class Main11JsonInclude {
     public static void main(String[] args) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        String content = "{\"no\":100,\"title\":\"Fucker\"}";
-        Domain domain = mapper.readValue(content, Domain.class);
-        assert domain.id == 100;
-        assert domain.name.equals("Fucker");
+        Domain domain = new Domain();
+        domain.setId(null);
+        domain.setName("Mrag");
+
+        System.out.println(mapper.writeValueAsString(domain));
+        // output: {"name":"Mrag"}
+        // 去掉注解后: {"id":null,"name":"Mrag"}
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Domain {
         private Integer id;
         private String name;
-
-        @JsonCreator
-        public Domain(@JsonProperty Integer no,
-                      @JsonProperty String title) {
-            this.id = no;
-            this.name = title;
-        }
 
         public Integer getId() {
             return id;
