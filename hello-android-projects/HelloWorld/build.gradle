@@ -1,0 +1,31 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+// 项目全局gradle配置，通常不需要修改
+buildscript {
+    ext.kotlin_version = '1.4.31'
+    repositories {
+        google() // Google自家的扩展依赖库
+        jcenter() // 包含大多第三方的开源库
+    }
+    dependencies {
+        // 构建安卓项目必须声明的gradle依赖
+        classpath "com.android.tools.build:gradle:4.1.2"
+
+        // 使用kotlin开发安卓项目所必需
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
