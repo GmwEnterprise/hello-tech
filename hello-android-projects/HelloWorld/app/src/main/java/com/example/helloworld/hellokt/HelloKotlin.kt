@@ -1,4 +1,4 @@
-package com.example.helloworld
+package com.example.helloworld.hellokt
 
 import kotlin.math.max
 import kotlin.math.min
@@ -52,9 +52,4 @@ fun main() {
 val range = 0..10
 fun loop() {
     for (i in range step 2) print(i)
-}
-
-// 定义一个对象
-class Person {
-
 }
