@@ -1,4 +1,4 @@
-package com.github.mrag.demo.spring;
+package com.github.mrag.demo.spring.test;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Component;
