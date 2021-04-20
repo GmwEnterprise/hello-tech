@@ -11,6 +11,7 @@
     <module>jackson</module>
     <module>springfox-document</module>
     <module>common-module</module>
+    <module>demo-api</module>
   </modules>
   <packaging>pom</packaging>
 
