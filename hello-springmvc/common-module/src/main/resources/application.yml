@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+server:
+  port: 4000
+
+logging:
+  level:
+    com.github.mrag: debug
+    org.springframework.web: trace

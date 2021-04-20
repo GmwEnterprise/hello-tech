@@ -1,0 +1,9 @@
+POST http://localhost:3500/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="dataf"; filename="file.txt"
+Content-Type: application/xml
+
+< ./pom.xml
+--WebAppBoundary--
