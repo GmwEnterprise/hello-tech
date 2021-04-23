@@ -18,10 +18,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.fasterxml.jackson.dataformat</groupId>
-      <artifactId>jackson-dataformat-xml</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.github.mrag</groupId>
       <artifactId>common-module</artifactId>
       <version>1.0-SNAPSHOT</version>
