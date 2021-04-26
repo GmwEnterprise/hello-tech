@@ -1,2 +1,0 @@
-vscode下开发C语言的环境配置教程：
-https://code.visualstudio.com/docs/cpp/config-mingw#_build-helloworldcpp
