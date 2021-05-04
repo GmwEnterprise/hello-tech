@@ -4,4 +4,4 @@ project(helloworld1 C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(helloworld1
-        main.c)
+        echo_eof.c)
