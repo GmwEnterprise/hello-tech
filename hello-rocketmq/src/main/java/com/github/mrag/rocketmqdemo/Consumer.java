@@ -19,6 +19,8 @@ public class Consumer {
         // 设置NameServer的地址
         consumer.setNamesrvAddr("localhost:9876");
         // 订阅一个或者多个Topic，以及Tag来过滤需要消费的消息
+        // subExpression只支持一种语法：tag1 || tag2 || tag3 ...
+        // 为null或者 '*' 则表示订阅所有tag
         consumer.subscribe("TopicTest", "*");
         // 注册回调实现类来处理从broker拉取回来的消息
         consumer.registerMessageListener(new MessageListenerConcurrently() {
