@@ -29,6 +29,9 @@ int main() {
     wrap(no_data_64());
     wrap(array_addr_in_memory());
     wrap(point_array());
+    wrap(array_change_value());
+    wrap(array_init());
+    wrap(array_sizeof());
 #endif
 #endif
 #endif

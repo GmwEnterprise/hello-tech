@@ -3955,3 +3955,15 @@ org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [loc
 15:21:16.536 [main] INFO  RocketmqClient - the producer [please_rename_unique_group_name] shutdown OK
 15:21:16.537 [NettyClientSelector_1] INFO  RocketmqRemoting - closeChannel: close the connection to remote address[127.0.0.1:9876] result: true
 15:21:16.537 [NettyClientSelector_1] INFO  RocketmqRemoting - closeChannel: close the connection to remote address[10.253.3.24:10911] result: true
+17:54:53.747 [main] DEBUG i.n.u.i.l.InternalLoggerFactory - Using SLF4J as the default logging framework
+17:54:56.260 [NettyClientSelector_1] INFO  RocketmqRemoting - closeChannel: close the connection to remote address[127.0.0.1:9876] result: true
+17:54:56.263 [NettyClientSelector_1] INFO  RocketmqRemoting - closeChannel: close the connection to remote address[127.0.0.1:9876] result: true
+17:54:56.263 [NettyClientSelector_1] INFO  RocketmqRemoting - closeChannel: close the connection to remote address[10.253.17.78:10911] result: true
+17:57:06.830 [main] DEBUG i.n.u.i.l.InternalLoggerFactory - Using SLF4J as the default logging framework
+17:57:23.524 [main] DEBUG i.n.u.i.l.InternalLoggerFactory - Using SLF4J as the default logging framework
+17:57:25.872 [NettyClientSelector_1] INFO  RocketmqRemoting - closeChannel: close the connection to remote address[127.0.0.1:9876] result: true
+17:57:25.874 [NettyClientSelector_1] INFO  RocketmqRemoting - closeChannel: close the connection to remote address[127.0.0.1:9876] result: true
+17:57:25.875 [NettyClientSelector_1] INFO  RocketmqRemoting - closeChannel: close the connection to remote address[10.253.17.78:10911] result: true
+17:57:39.036 [main] DEBUG i.n.u.i.l.InternalLoggerFactory - Using SLF4J as the default logging framework
+17:57:41.489 [NettyClientSelector_1] INFO  RocketmqRemoting - closeChannel: close the connection to remote address[127.0.0.1:9876] result: true
+17:57:41.491 [NettyClientSelector_1] INFO  RocketmqRemoting - closeChannel: close the connection to remote address[10.253.17.78:10911] result: true
