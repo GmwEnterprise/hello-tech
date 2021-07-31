@@ -7,5 +7,5 @@ public interface InfoOrderItemConverter {
 
     InfoOrderItemDO entityToData(InfoOrderItem entity);
 
-    InfoOrderItemDO dataToEntity(InfoOrderItem infoOrderItem);
+    InfoOrderItem dataToEntity(InfoOrderItemDO data);
 }

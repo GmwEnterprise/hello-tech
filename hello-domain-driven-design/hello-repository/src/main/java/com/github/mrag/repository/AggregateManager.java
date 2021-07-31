@@ -2,6 +2,7 @@ package com.github.mrag.repository;
 
 import com.github.mrag.common.Aggregate;
 import com.github.mrag.common.Identifier;
+import com.github.mrag.repository.diff.EntityDiff;
 
 public abstract class AggregateManager<T extends Aggregate<ID>, ID extends Identifier> {
 

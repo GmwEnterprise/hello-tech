@@ -3,6 +3,7 @@ package com.github.mrag.repository;
 import com.github.mrag.common.Aggregate;
 import com.github.mrag.common.BaseRepository;
 import com.github.mrag.common.Identifier;
+import com.github.mrag.repository.diff.EntityDiff;
 import lombok.Getter;
 import lombok.NonNull;
 

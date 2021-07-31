@@ -2,6 +2,8 @@ package com.github.mrag.repository.dao;
 
 import com.github.mrag.repository.persistence.InfoOrderItemDO;
 
+import java.util.List;
+
 public interface InfoOrderItemMapper {
     int deleteByPrimaryKey(Long orderItemId);
 
@@ -14,4 +16,6 @@ public interface InfoOrderItemMapper {
     int updateByPrimaryKeySelective(InfoOrderItemDO record);
 
     int updateByPrimaryKey(InfoOrderItemDO record);
+
+    List<InfoOrderItemDO> selectByOrderId(Long orderId);
 }
