@@ -13,12 +13,21 @@ public final class ReflectUtils {
 
     public static List<Field> getAllFields(Class<?> containerType) {
         List<Field> results = new ArrayList<>();
-        Class<?> type = containerType;
+        Class<?> type = unwrapAnonymous(containerType);
         while (type != null) {
             results.addAll(Arrays.asList(type.getDeclaredFields()));
             type = type.getSuperclass();
         }
         return results;
+    }
+
+    public static Class<?> unwrapAnonymous(Class<?> containerType) {
+        Field[] declaredFields = containerType.getDeclaredFields();
+        if (Arrays.stream(declaredFields).anyMatch(field -> "this$0".equals(field.getName()))) {
+            // 匿名内部类
+            return containerType.getSuperclass();
+        }
+        return containerType;
     }
 
     public static Object getFieldValue(Field member, Object container) {

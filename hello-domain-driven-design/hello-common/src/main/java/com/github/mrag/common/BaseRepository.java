@@ -1,6 +1,6 @@
 package com.github.mrag.common;
 
-public interface BaseRepository<T extends Aggregate<ID>, ID extends Identifier> {
+public interface BaseRepository<T extends Aggregate<ID>, ID extends Identifier<?>> {
 
     /**
      * 追踪一个aggregate

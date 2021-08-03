@@ -6,9 +6,11 @@ import com.github.mrag.types.OrderItemId;
 import com.github.mrag.types.Price;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class InfoOrderItem implements Entity<OrderItemId> {
 
     private OrderItemId orderItemId;

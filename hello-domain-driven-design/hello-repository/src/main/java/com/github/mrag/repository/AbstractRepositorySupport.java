@@ -7,7 +7,7 @@ import com.github.mrag.repository.diff.EntityDiff;
 import lombok.Getter;
 import lombok.NonNull;
 
-public abstract class AbstractRepositorySupport<T extends Aggregate<ID>, ID extends Identifier>
+public abstract class AbstractRepositorySupport<T extends Aggregate<ID>, ID extends Identifier<?>>
         implements BaseRepository<T, ID> {
 
     @Getter

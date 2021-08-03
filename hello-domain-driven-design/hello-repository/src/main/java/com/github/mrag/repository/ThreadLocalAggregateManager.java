@@ -4,7 +4,7 @@ import com.github.mrag.common.Aggregate;
 import com.github.mrag.common.Identifier;
 import com.github.mrag.repository.diff.EntityDiff;
 
-class ThreadLocalAggregateManager<T extends Aggregate<ID>, ID extends Identifier>
+class ThreadLocalAggregateManager<T extends Aggregate<ID>, ID extends Identifier<?>>
         extends AggregateManager<T, ID> {
 
     private final ThreadLocal<DbContext<T, ID>> context;

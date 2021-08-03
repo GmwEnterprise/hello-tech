@@ -10,7 +10,7 @@ import lombok.NonNull;
 import java.util.HashMap;
 import java.util.Map;
 
-class DbContext<T extends Aggregate<ID>, ID extends Identifier> {
+class DbContext<T extends Aggregate<ID>, ID extends Identifier<?>> {
 
     @Getter
     private final Class<? extends T> aggregateClass;
