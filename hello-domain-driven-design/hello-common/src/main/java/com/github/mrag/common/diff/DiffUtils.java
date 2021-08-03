@@ -1,4 +1,4 @@
-package com.github.mrag.repository.diff;
+package com.github.mrag.common.diff;
 
 import com.github.mrag.common.Aggregate;
 import com.github.mrag.common.Identifier;

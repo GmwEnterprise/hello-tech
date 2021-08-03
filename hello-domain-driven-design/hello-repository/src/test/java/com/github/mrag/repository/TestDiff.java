@@ -2,8 +2,8 @@ package com.github.mrag.repository;
 
 import com.github.mrag.domain.aggregate.InfoOrder;
 import com.github.mrag.domain.aggregate.entity.InfoOrderItem;
-import com.github.mrag.repository.diff.DiffUtils;
-import com.github.mrag.repository.diff.EntityDiff;
+import com.github.mrag.common.diff.DiffUtils;
+import com.github.mrag.common.diff.EntityDiff;
 import com.github.mrag.types.OrderId;
 import com.github.mrag.types.OrderItemId;
 import com.github.mrag.types.Price;

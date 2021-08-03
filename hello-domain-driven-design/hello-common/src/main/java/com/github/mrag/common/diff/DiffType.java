@@ -1,4 +1,4 @@
-package com.github.mrag.repository.diff;
+package com.github.mrag.common.diff;
 
 /**
  * 只针对EntityDiff类型，ListDiff不存在DiffType的判断

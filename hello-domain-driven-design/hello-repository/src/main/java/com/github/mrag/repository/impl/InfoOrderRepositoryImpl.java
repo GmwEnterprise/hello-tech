@@ -1,5 +1,9 @@
 package com.github.mrag.repository.impl;
 
+import com.github.mrag.common.diff.Diff;
+import com.github.mrag.common.diff.DiffType;
+import com.github.mrag.common.diff.EntityDiff;
+import com.github.mrag.common.diff.ListDiff;
 import com.github.mrag.common.utils.DbTransactionExecutor;
 import com.github.mrag.domain.aggregate.InfoOrder;
 import com.github.mrag.domain.aggregate.entity.InfoOrderItem;
@@ -9,10 +13,6 @@ import com.github.mrag.repository.converter.InfoOrderConverter;
 import com.github.mrag.repository.converter.InfoOrderItemConverter;
 import com.github.mrag.repository.dao.InfoOrderItemMapper;
 import com.github.mrag.repository.dao.InfoOrderMapper;
-import com.github.mrag.repository.diff.Diff;
-import com.github.mrag.repository.diff.DiffType;
-import com.github.mrag.repository.diff.EntityDiff;
-import com.github.mrag.repository.diff.ListDiff;
 import com.github.mrag.repository.persistence.InfoOrderDO;
 import com.github.mrag.repository.persistence.InfoOrderItemDO;
 import com.github.mrag.types.OrderId;
