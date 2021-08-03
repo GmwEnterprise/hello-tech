@@ -15,7 +15,7 @@ public abstract class AggregateManager<T extends Aggregate<ID>, ID extends Ident
 
     public abstract void detach(T aggregate);
 
-    public abstract EntityDiff detectChanges(T aggregate);
+    public abstract EntityDiff<T, ID> detectChanges(T aggregate);
 
     public abstract void merge(T aggregate);
 }

@@ -45,10 +45,10 @@ class DbContext<T extends Aggregate<ID>, ID extends Identifier> {
     /**
      * 检查聚合根的变化，汇总为EntityDiff实例
      */
-    EntityDiff detectChanges(@NonNull T aggregate) {
+    EntityDiff<T, ID> detectChanges(@NonNull T aggregate) {
         // 没有ID应为insert
         if (aggregate.getId() == null) {
-            return EntityDiff.EMPTY;
+            return null;
         }
 
         // 没有snapshot则立刻进行一次追踪

@@ -36,7 +36,7 @@ public abstract class AbstractRepositorySupport<T extends Aggregate<ID>, ID exte
     /**
      * 子类repository实现
      */
-    protected abstract void onUpdate(T aggregate, EntityDiff diff);
+    protected abstract void onUpdate(T aggregate, EntityDiff<T, ID> diff);
 
     /**
      * 子类repository实现
@@ -80,8 +80,8 @@ public abstract class AbstractRepositorySupport<T extends Aggregate<ID>, ID exte
         }
 
         // diff
-        EntityDiff diff = aggregateManager.detectChanges(aggregate);
-        if (diff.isEmpty()) {
+        EntityDiff<T, ID> diff = aggregateManager.detectChanges(aggregate);
+        if (diff == null) {
             return;
         }
 

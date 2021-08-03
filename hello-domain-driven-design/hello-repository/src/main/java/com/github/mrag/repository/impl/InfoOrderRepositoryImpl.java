@@ -16,6 +16,7 @@ import com.github.mrag.repository.diff.ListDiff;
 import com.github.mrag.repository.persistence.InfoOrderDO;
 import com.github.mrag.repository.persistence.InfoOrderItemDO;
 import com.github.mrag.types.OrderId;
+import com.github.mrag.types.OrderItemId;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -71,30 +72,33 @@ public class InfoOrderRepositoryImpl
     }
 
     @Override
-    protected void onUpdate(InfoOrder aggregate, EntityDiff diff) {
+    protected void onUpdate(InfoOrder aggregate, EntityDiff<InfoOrder, OrderId> diff) {
         // 主单实体是否有变化
-        if (diff.isSelfModified()) {
+        if (diff.getDiffType() == DiffType.Modified) {
             InfoOrderDO orderDO = orderConverter.entityToData(aggregate);
             orderMapper.updateByPrimaryKey(orderDO);
         }
 
         //
-        Diff itemsDiff = diff.getDiff("items");
+        Diff<InfoOrderItem, OrderItemId> itemsDiff = diff.getDiff("items");
         if (itemsDiff instanceof ListDiff) {
-            ListDiff itemListDiff = (ListDiff) itemsDiff;
-            for (Diff itemDiff : itemListDiff) {
-                if (itemDiff.getType() == DiffType.Removed) {
-                    InfoOrderItem item = (InfoOrderItem) itemDiff.getOldValue();
+            List<Diff<InfoOrderItem, OrderItemId>> itemListDiff =
+                    ((ListDiff<InfoOrderItem, OrderItemId>) itemsDiff).getList();
+            for (Diff<InfoOrderItem, OrderItemId> itemDiff : itemListDiff) {
+                EntityDiff<InfoOrderItem, OrderItemId> entityItemDiff =
+                        (EntityDiff<InfoOrderItem, OrderItemId>) itemDiff;
+                if (entityItemDiff.getDiffType() == DiffType.Removed) {
+                    InfoOrderItem item = entityItemDiff.getOldValue();
                     InfoOrderItemDO itemDO = orderItemConverter.entityToData(item);
                     orderItemMapper.deleteByPrimaryKey(itemDO.getOrderItemId());
                 }
-                if (itemDiff.getType() == DiffType.Added) {
-                    InfoOrderItem item = (InfoOrderItem) itemDiff.getNewValue();
+                if (entityItemDiff.getDiffType() == DiffType.Added) {
+                    InfoOrderItem item = entityItemDiff.getNewValue();
                     InfoOrderItemDO itemDO = orderItemConverter.entityToData(item);
                     orderItemMapper.insert(itemDO);
                 }
-                if (itemDiff.getType() == DiffType.Modified) {
-                    InfoOrderItem item = (InfoOrderItem) itemDiff.getNewValue();
+                if (entityItemDiff.getDiffType() == DiffType.Modified) {
+                    InfoOrderItem item = entityItemDiff.getNewValue();
                     InfoOrderItemDO itemDO = orderItemConverter.entityToData(item);
                     orderItemMapper.updateByPrimaryKey(itemDO);
                 }

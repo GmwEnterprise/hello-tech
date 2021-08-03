@@ -1,10 +1,23 @@
 package com.github.mrag.repository.diff;
 
-import java.util.Iterator;
+import com.github.mrag.common.Entity;
+import com.github.mrag.common.Identifier;
+import lombok.Getter;
 
-public class ListDiff implements Diff, Iterable<Diff> {
+import java.util.Iterator;
+import java.util.List;
+
+public class ListDiff<T extends Entity<ID>, ID extends Identifier> implements Diff<T, ID>, Iterable<Diff<T, ID>> {
+
+    @Getter
+    private final List<Diff<T, ID>> list;
+
+    public ListDiff(List<Diff<T, ID>> list) {
+        this.list = list;
+    }
+
     @Override
-    public Iterator<Diff> iterator() {
-        return null;
+    public Iterator<Diff<T, ID>> iterator() {
+        return list.iterator();
     }
 }

@@ -26,7 +26,7 @@ class ThreadLocalAggregateManager<T extends Aggregate<ID>, ID extends Identifier
     }
 
     @Override
-    public EntityDiff detectChanges(T aggregate) {
+    public EntityDiff<T, ID> detectChanges(T aggregate) {
         return context.get().detectChanges(aggregate);
     }
 
