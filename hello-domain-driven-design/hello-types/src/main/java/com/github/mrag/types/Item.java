@@ -8,10 +8,10 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public enum Item {
-    iPhone(1, 8699),
-    mate40(2, 4999),
-    matebook14(3, 6399),
-    matebook13(4, 5899);
+    iPhone(1, "8699"),
+    mate40(2, "4999"),
+    matebook14(3, "6399"),
+    matebook13(4, "5899");
 
     @Getter
     private final int id;
@@ -19,9 +19,9 @@ public enum Item {
     @Getter
     private final Money itemPrice;
 
-    Item(int id, int itemPrice) {
+    Item(int id, String itemPrice) {
         this.id = id;
-        this.itemPrice = new Money(BigDecimal.valueOf(itemPrice));
+        this.itemPrice = new Money(itemPrice);
     }
 
     public static Item findItem(String name) {

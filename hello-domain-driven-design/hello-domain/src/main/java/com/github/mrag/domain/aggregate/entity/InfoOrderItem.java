@@ -16,7 +16,6 @@ public class InfoOrderItem implements Entity<OrderItemId> {
 
     private OrderItemId orderItemId;
     private OrderId orderId;
-    private Money price;
     private Item item;
 
     @Override

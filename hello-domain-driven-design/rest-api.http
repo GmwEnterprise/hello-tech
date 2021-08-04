@@ -1,0 +1,14 @@
+POST {{host}}/api/order/submit
+Content-Type: application/json;charset=UTF-8
+
+{
+  "customer": "Mrag",
+  "items": [
+    {
+      "itemId": 1
+    },
+    {
+      "itemId": 1
+    }
+  ]
+}

@@ -3,6 +3,7 @@ package com.github.mrag.web.controller;
 import com.github.mrag.app.OrderHandleService;
 import com.github.mrag.app.dto.OrderSubmitDTO;
 import com.github.mrag.web.common.Resp;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ public class OrderController {
     }
 
     @PostMapping("/submit")
-    public Resp submit(@RequestBody OrderSubmitDTO submitDTO) {
+    public Resp submit(@RequestBody @Validated OrderSubmitDTO submitDTO) {
         orderHandleService.submitOrder(submitDTO);
         return Resp.ok();
     }

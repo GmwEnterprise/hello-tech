@@ -18,20 +18,19 @@ public class Money extends DomainPrimitive<BigDecimal> {
     // 货币
     Currency currency;
 
-    public Money(BigDecimal amount) {
-        this.amount = amount;
+    public Money(String amount) {
+        this.amount = new BigDecimal(amount);
         this.currency = Currency.getInstance(Locale.CHINA);
     }
 
-    public Money(BigDecimal amount, Locale locale) {
-        this.amount = amount;
+    public Money(String amount, Locale locale) {
+        this.amount = new BigDecimal(amount);
         this.currency = Currency.getInstance(locale);
     }
 
-    public Money(BigDecimal amount, String code) {
-        this.amount = amount;
-        // CNY, USD, TWD, HDK, EUR, JPY
-        this.currency = Currency.getInstance(code);
+    public Money(String amount, CurrencyCode code) {
+        this.amount = new BigDecimal(amount);
+        this.currency = code.getCurrency();
     }
 
     @Override

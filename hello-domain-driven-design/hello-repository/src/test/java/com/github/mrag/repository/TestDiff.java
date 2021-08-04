@@ -8,12 +8,11 @@ import com.github.mrag.types.Item;
 import com.github.mrag.types.Money;
 import com.github.mrag.types.OrderId;
 import com.github.mrag.types.OrderItemId;
-import org.apache.commons.lang3.SerializationUtils;
+// import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -24,33 +23,31 @@ public class TestDiff implements Serializable {
         InfoOrder order = new InfoOrder();
         order.setOrderId(new OrderId(1L));
         order.setCreateTime(LocalDateTime.now());
-        order.setTotalPrice(new Money(BigDecimal.TEN));
+        order.setTotalPrice(new Money("10"));
 
         order.setItems(Arrays.asList(
                 new InfoOrderItem() {{
                     setOrderItemId(new OrderItemId(1L));
                     setOrderId(new OrderId(1L));
-                    setPrice(new Money(BigDecimal.valueOf(5L)));
                     setItem(Item.findItem(1));
                 }},
                 new InfoOrderItem() {{
                     setOrderItemId(new OrderItemId(2L));
                     setOrderId(new OrderId(1L));
-                    setPrice(new Money(BigDecimal.valueOf(5L)));
                     setItem(Item.findItem(1));
                 }}
         ));
 
-        InfoOrder order2 = SerializationUtils.clone(order);
-
-        System.out.println(order);
-        System.out.println(order2);
-
-        order2.getItems().get(1).setItem(Item.findItem(2));
-
-        EntityDiff<InfoOrder, OrderId> diff = DiffUtils.diff(order, order2);
-
-        System.out.println(diff);
+        // InfoOrder order2 = SerializationUtils.clone(order);
+        //
+        // System.out.println(order);
+        // System.out.println(order2);
+        //
+        // order2.getItems().get(1).setItem(Item.findItem(2));
+        //
+        // EntityDiff<InfoOrder, OrderId> diff = DiffUtils.diff(order, order2);
+        //
+        // System.out.println(diff);
     }
 
     @Test
@@ -58,7 +55,6 @@ public class TestDiff implements Serializable {
         InfoOrderItem item = new InfoOrderItem() {{
             setOrderItemId(new OrderItemId(2L));
             setOrderId(new OrderId(1L));
-            setPrice(new Money(BigDecimal.valueOf(5L)));
             setItem(Item.findItem(1));
         }};
 
