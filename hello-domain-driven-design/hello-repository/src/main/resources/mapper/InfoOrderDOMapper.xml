@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mrag.repository.dao.InfoOrderMapper">
+<mapper namespace="com.github.mrag.repository.dao.InfoOrderDOMapper">
   <resultMap id="BaseResultMap" type="com.github.mrag.repository.persistence.InfoOrderDO">
     <id column="order_id" jdbcType="BIGINT" property="orderId" />
     <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="sub_order_count" jdbcType="INTEGER" property="subOrderCount" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    order_id, total_price, create_time
+    order_id, total_price, customer_name, sub_order_count, create_time, finish_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -23,8 +26,10 @@
     <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into info_order (total_price, create_time)
-    values (#{totalPrice,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP})
+    insert into info_order (total_price, customer_name, sub_order_count, 
+      create_time, finish_time)
+    values (#{totalPrice,jdbcType=DECIMAL}, #{customerName,jdbcType=VARCHAR}, #{subOrderCount,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.github.mrag.repository.persistence.InfoOrderDO">
     <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Long">
@@ -35,16 +40,34 @@
       <if test="totalPrice != null">
         total_price,
       </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="subOrderCount != null">
+        sub_order_count,
+      </if>
       <if test="createTime != null">
         create_time,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="totalPrice != null">
         #{totalPrice,jdbcType=DECIMAL},
       </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="subOrderCount != null">
+        #{subOrderCount,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -54,8 +77,17 @@
       <if test="totalPrice != null">
         total_price = #{totalPrice,jdbcType=DECIMAL},
       </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="subOrderCount != null">
+        sub_order_count = #{subOrderCount,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where order_id = #{orderId,jdbcType=BIGINT}
@@ -63,7 +95,10 @@
   <update id="updateByPrimaryKey" parameterType="com.github.mrag.repository.persistence.InfoOrderDO">
     update info_order
     set total_price = #{totalPrice,jdbcType=DECIMAL},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      sub_order_count = #{subOrderCount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP}
     where order_id = #{orderId,jdbcType=BIGINT}
   </update>
 </mapper>

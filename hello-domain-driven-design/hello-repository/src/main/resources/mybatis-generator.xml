@@ -57,13 +57,13 @@
 
         <!--生成全部表tableName设为%-->
         <!--禁止生成example语法方法-->
-        <table tableName="info_order"
+        <table tableName="info_order" domainObjectName="InfoOrderDO"
                enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false">
             <!--自增主键配置-->
             <generatedKey column="order_id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="info_order_item"
+        <table tableName="info_order_item" domainObjectName="InfoOrderItemDO"
                enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false">
             <!--自增主键配置-->

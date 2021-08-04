@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mrag.repository.dao.InfoOrderItemMapper">
+<mapper namespace="com.github.mrag.repository.dao.InfoOrderItemDOMapper">
   <resultMap id="BaseResultMap" type="com.github.mrag.repository.persistence.InfoOrderItemDO">
     <id column="order_item_id" jdbcType="BIGINT" property="orderItemId" />
     <result column="order_id" jdbcType="BIGINT" property="orderId" />

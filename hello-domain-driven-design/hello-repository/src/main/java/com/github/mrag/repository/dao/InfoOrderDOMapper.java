@@ -1,8 +1,10 @@
 package com.github.mrag.repository.dao;
 
 import com.github.mrag.repository.persistence.InfoOrderDO;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface InfoOrderMapper {
+@Mapper
+public interface InfoOrderDOMapper {
     int deleteByPrimaryKey(Long orderId);
 
     int insert(InfoOrderDO record);

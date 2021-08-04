@@ -6,10 +6,12 @@ import com.github.mrag.common.diff.DiffUtils;
 import com.github.mrag.common.diff.EntityDiff;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 class DbContext<T extends Aggregate<ID>, ID extends Identifier<?>> {
 
     @Getter
@@ -27,8 +29,11 @@ class DbContext<T extends Aggregate<ID>, ID extends Identifier<?>> {
      */
     void attach(@NonNull T aggregate) {
         if (aggregate.getId() != null) {
+            log.debug("追踪实体: ID = {}", aggregate.getId());
             if (snapshotMap.containsKey(aggregate.getId())) {
                 merge(aggregate);
+            } else {
+                snapshotMap.put(aggregate.getId(), SnapshotUtils.snapshot(aggregate));
             }
         }
     }
@@ -54,6 +59,12 @@ class DbContext<T extends Aggregate<ID>, ID extends Identifier<?>> {
         // 没有snapshot则立刻进行一次追踪
         T snapshot = snapshotMap.get(aggregate.getId());
         if (snapshot == null) {
+            log.debug("需要update的实体未被追踪");
+            // 从业务逻辑来说，当走到这一步意味着执行的时更新实体
+            // 更新实体应该从表中查询出实体再进行更新，也就是说必然会存在snapshot
+            // 除非人为对对象解除了追踪
+            // 这样会导致最后的diff结果为没有变化
+            // 就不会执行update了
             attach(aggregate);
         }
 
@@ -73,8 +84,7 @@ class DbContext<T extends Aggregate<ID>, ID extends Identifier<?>> {
      */
     void merge(@NonNull T aggregate) {
         if (aggregate.getId() != null) {
-            T snapshot = SnapshotUtils.snapshot(aggregate);
-            snapshotMap.put(aggregate.getId(), snapshot);
+            snapshotMap.put(aggregate.getId(), SnapshotUtils.snapshot(aggregate));
         }
     }
 }

@@ -22,6 +22,14 @@ public final class CommonUtils {
         return res;
     }
 
+    /**
+     * 适合业务模型的equals
+     *
+     * @param a   对象A
+     * @param b   对象B
+     * @param <T> 对象类型
+     * @return equals结果
+     */
     public static <T> boolean equalsInternal(T a, T b) {
 
         if (a == b) {
@@ -40,5 +48,9 @@ public final class CommonUtils {
             return Objects.equals(((DomainPrimitive<?>) a).getValue(), ((DomainPrimitive<?>) b).getValue());
         }
         return Objects.equals(a, b);
+    }
+
+    public static boolean everyItemInArrayIsNull(Object[] constructorParams) {
+        return false;
     }
 }

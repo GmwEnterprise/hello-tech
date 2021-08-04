@@ -11,8 +11,8 @@ import com.github.mrag.domain.repository.InfoOrderRepository;
 import com.github.mrag.repository.AbstractRepositorySupport;
 import com.github.mrag.repository.converter.InfoOrderConverter;
 import com.github.mrag.repository.converter.InfoOrderItemConverter;
-import com.github.mrag.repository.dao.InfoOrderItemMapper;
-import com.github.mrag.repository.dao.InfoOrderMapper;
+import com.github.mrag.repository.dao.InfoOrderDOMapper;
+import com.github.mrag.repository.dao.InfoOrderItemDOMapper;
 import com.github.mrag.repository.persistence.InfoOrderDO;
 import com.github.mrag.repository.persistence.InfoOrderItemDO;
 import com.github.mrag.types.OrderId;
@@ -27,15 +27,14 @@ public class InfoOrderRepositoryImpl
         extends AbstractRepositorySupport<InfoOrder, OrderId>
         implements InfoOrderRepository {
 
-    private final InfoOrderMapper orderMapper;
-    private final InfoOrderItemMapper orderItemMapper;
+    private final InfoOrderDOMapper orderMapper;
+    private final InfoOrderItemDOMapper orderItemMapper;
     private final InfoOrderConverter orderConverter;
     private final InfoOrderItemConverter orderItemConverter;
-
     private final DbTransactionExecutor transactionExecutor;
 
-    public InfoOrderRepositoryImpl(InfoOrderMapper orderMapper,
-                                   InfoOrderItemMapper orderItemMapper,
+    public InfoOrderRepositoryImpl(InfoOrderDOMapper orderMapper,
+                                   InfoOrderItemDOMapper orderItemMapper,
                                    InfoOrderConverter orderConverter,
                                    InfoOrderItemConverter orderItemConverter,
                                    DbTransactionExecutor transactionExecutor) {
@@ -79,7 +78,7 @@ public class InfoOrderRepositoryImpl
             orderMapper.updateByPrimaryKey(orderDO);
         }
 
-        //
+        // 子单列表依次判断是否有变化
         Diff<InfoOrderItem, OrderItemId> itemsDiff = diff.getDiff("items");
         if (itemsDiff instanceof ListDiff) {
             List<Diff<InfoOrderItem, OrderItemId>> itemListDiff =
@@ -108,6 +107,6 @@ public class InfoOrderRepositoryImpl
 
     @Override
     protected void onDelete(InfoOrder aggregate) {
-
+        orderItemMapper.deleteByPrimaryKey(aggregate.getId().getId());
     }
 }

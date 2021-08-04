@@ -4,14 +4,18 @@ import com.github.mrag.common.Aggregate;
 import com.github.mrag.common.Identifier;
 import com.github.mrag.common.diff.EntityDiff;
 
+/**
+ * 使用ThreadLocal包装DbContext做到线程安全
+ *
+ * @param <T>  聚合实体类型
+ * @param <ID> 主键类型
+ */
 class ThreadLocalAggregateManager<T extends Aggregate<ID>, ID extends Identifier<?>>
         extends AggregateManager<T, ID> {
 
     private final ThreadLocal<DbContext<T, ID>> context;
-    // private final Class<T> targetClass;
 
     public ThreadLocalAggregateManager(Class<T> targetClass) {
-        // this.targetClass = targetClass;
         this.context = ThreadLocal.withInitial(() -> new DbContext<>(targetClass));
     }
 

@@ -3,6 +3,7 @@ package com.github.mrag.repository;
 import com.github.mrag.common.Aggregate;
 import com.github.mrag.common.BaseRepository;
 import com.github.mrag.common.Identifier;
+import com.github.mrag.common.diff.DiffUtils;
 import com.github.mrag.common.diff.EntityDiff;
 import lombok.Getter;
 import lombok.NonNull;
@@ -74,6 +75,7 @@ public abstract class AbstractRepositorySupport<T extends Aggregate<ID>, ID exte
     public void save(@NonNull T aggregate) {
         // 没有ID则直接插入
         if (aggregate.getId() == null) {
+            // 如果表设计没有添加自增主键，那么应在onInsert方法中生成主键
             onInsert(aggregate);
             attach(aggregate);
             return;
@@ -81,7 +83,7 @@ public abstract class AbstractRepositorySupport<T extends Aggregate<ID>, ID exte
 
         // diff
         EntityDiff<T, ID> diff = aggregateManager.detectChanges(aggregate);
-        if (diff == null) {
+        if (DiffUtils.isEmpty(diff)) {
             return;
         }
 

@@ -13,6 +13,8 @@
         <module>hello-repository</module>
         <module>hello-common</module>
         <module>hello-starter</module>
+        <module>hello-application</module>
+        <module>hello-web</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,10 +1,12 @@
 package com.github.mrag.repository.dao;
 
 import com.github.mrag.repository.persistence.InfoOrderItemDO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-public interface InfoOrderItemMapper {
+@Mapper
+public interface InfoOrderItemDOMapper {
     int deleteByPrimaryKey(Long orderItemId);
 
     int insert(InfoOrderItemDO record);
@@ -17,5 +19,5 @@ public interface InfoOrderItemMapper {
 
     int updateByPrimaryKey(InfoOrderItemDO record);
 
-    List<InfoOrderItemDO> selectByOrderId(Long orderId);
+    List<InfoOrderItemDO> selectByOrderId(Long id);
 }

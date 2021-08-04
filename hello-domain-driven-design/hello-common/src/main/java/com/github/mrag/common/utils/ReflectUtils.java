@@ -2,6 +2,7 @@ package com.github.mrag.common.utils;
 
 import lombok.NonNull;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -84,6 +85,18 @@ public final class ReflectUtils {
             return ((Class<?>) primitiveType.get(null)).isPrimitive();
         } catch (NoSuchFieldException | IllegalAccessException e) {
             return false;
+        }
+    }
+
+    public static <R> R newInstance(@NonNull Class<R> rtype, @NonNull Object[] params) {
+        Class<?>[] paramTypes = (Class<?>[]) Arrays.stream(params).map(Object::getClass).toArray();
+        Constructor<R> constructor;
+        try {
+            constructor = rtype.getConstructor(paramTypes);
+            constructor.setAccessible(true);
+            return constructor.newInstance(params);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -1,9 +1,10 @@
 package com.github.mrag.domain.aggregate.entity;
 
 import com.github.mrag.common.Entity;
+import com.github.mrag.types.Item;
 import com.github.mrag.types.OrderId;
 import com.github.mrag.types.OrderItemId;
-import com.github.mrag.types.Price;
+import com.github.mrag.types.Money;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,8 +16,8 @@ public class InfoOrderItem implements Entity<OrderItemId> {
 
     private OrderItemId orderItemId;
     private OrderId orderId;
-    private Price price;
-    private Integer itemId;
+    private Money price;
+    private Item item;
 
     @Override
     public OrderItemId getId() {
