@@ -8,7 +8,17 @@ Content-Type: application/json;charset=UTF-8
       "itemId": 1
     },
     {
-      "itemId": 1
+      "itemId": 2
     }
   ]
 }
+
+###
+GET {{host}}/api/order/main/2
+
+###
+POST https://10.124.195.138/orderDeal/taskDeal/endTask
+Cookie: SESSION=d3ed4347-3bf3-43d1-bab3-82db1152d3ac
+Content-Type: application/x-www-form-urlencoded
+
+worksheetId=14444458452420&taskCode=OrderResubmit&tradeTypeCode=2023&goodsNodeId=C000000&selectedRow=14444458452420&dealResult=客户合户任务成功

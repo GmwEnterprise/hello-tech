@@ -9,6 +9,7 @@ import com.github.mrag.domain.aggregate.InfoOrder;
 import com.github.mrag.domain.aggregate.entity.InfoOrderItem;
 import com.github.mrag.domain.repository.InfoOrderRepository;
 import com.github.mrag.domain.service.InfoOrderService;
+import com.github.mrag.types.OrderId;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class OrderHandleServiceImpl implements OrderHandleService {
     }
 
     @Override
-    public void submitOrder(OrderSubmitDTO submitDTO) {
+    public OrderId submitOrder(OrderSubmitDTO submitDTO) {
         InfoOrder order = orderAssembler.fromSubmit(submitDTO);
         List<InfoOrderItem> items = submitDTO
                 .getItems().stream().map(orderItemAssembler::fromSubmit)
@@ -43,9 +44,12 @@ public class OrderHandleServiceImpl implements OrderHandleService {
 
         // 合并主子单
         orderService.orderCombination(order, items);
-        System.out.println(order);
 
-        // todo
+        // 写入
+        orderRepo.saveAndDetach(order);
+
+        // 返回订单号
+        return order.getOrderId();
     }
 
     @Override

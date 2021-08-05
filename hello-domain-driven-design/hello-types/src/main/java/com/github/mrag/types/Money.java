@@ -33,6 +33,21 @@ public class Money extends DomainPrimitive<BigDecimal> {
         this.currency = code.getCurrency();
     }
 
+    public Money(BigDecimal amount) {
+        this.amount = amount;
+        this.currency = Currency.getInstance(Locale.CHINA);
+    }
+
+    public Money(BigDecimal amount, Locale locale) {
+        this.amount = amount;
+        this.currency = Currency.getInstance(locale);
+    }
+
+    public Money(BigDecimal amount, CurrencyCode code) {
+        this.amount = amount;
+        this.currency = code.getCurrency();
+    }
+
     @Override
     public BigDecimal getValue() {
         return amount;

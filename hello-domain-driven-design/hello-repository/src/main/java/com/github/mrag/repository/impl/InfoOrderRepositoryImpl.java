@@ -23,40 +23,42 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class InfoOrderRepositoryImpl
-        extends AbstractRepositorySupport<InfoOrder, OrderId>
+public class InfoOrderRepositoryImpl extends AbstractRepositorySupport<InfoOrder, OrderId>
         implements InfoOrderRepository {
 
     private final InfoOrderDOMapper orderMapper;
     private final InfoOrderItemDOMapper orderItemMapper;
     private final InfoOrderConverter orderConverter;
     private final InfoOrderItemConverter orderItemConverter;
-    private final DbTransactionExecutor transactionExecutor;
+    private final DbTransactionExecutor exec;
 
     public InfoOrderRepositoryImpl(InfoOrderDOMapper orderMapper,
                                    InfoOrderItemDOMapper orderItemMapper,
                                    InfoOrderConverter orderConverter,
                                    InfoOrderItemConverter orderItemConverter,
-                                   DbTransactionExecutor transactionExecutor) {
+                                   DbTransactionExecutor exec) {
         super(InfoOrder.class);
         this.orderMapper = orderMapper;
         this.orderItemMapper = orderItemMapper;
         this.orderConverter = orderConverter;
         this.orderItemConverter = orderItemConverter;
-        this.transactionExecutor = transactionExecutor;
+        this.exec = exec;
     }
 
     @Override
     protected void onInsert(InfoOrder aggregate) {
-        transactionExecutor.execute(() -> {
+        exec.execute(() -> {
             InfoOrderDO infoOrderDO = orderConverter.entityToData(aggregate);
-            orderMapper.insert(infoOrderDO);
+            orderMapper.insertSelective(infoOrderDO);
+            aggregate.setOrderId(new OrderId(infoOrderDO.getOrderId()));
 
             if (aggregate.getItems() != null) {
-                aggregate.getItems().forEach(item -> {
+                for (InfoOrderItem item : aggregate.getItems()) {
+                    item.setOrderId(aggregate.getOrderId());
                     InfoOrderItemDO itemDO = orderItemConverter.entityToData(item);
                     orderItemMapper.insert(itemDO);
-                });
+                    item.setOrderItemId(new OrderItemId(itemDO.getOrderItemId()));
+                }
             }
         });
     }
@@ -64,6 +66,9 @@ public class InfoOrderRepositoryImpl
     @Override
     protected InfoOrder onSelect(OrderId orderId) {
         InfoOrderDO infoOrderDO = orderMapper.selectByPrimaryKey(orderId.getId());
+        if (infoOrderDO == null) {
+            return null;
+        }
         List<InfoOrderItemDO> items = orderItemMapper.selectByOrderId(orderId.getId());
         InfoOrder order = orderConverter.dataToEntity(infoOrderDO);
         order.setItems(items.stream().map(orderItemConverter::dataToEntity).collect(Collectors.toList()));
@@ -72,37 +77,39 @@ public class InfoOrderRepositoryImpl
 
     @Override
     protected void onUpdate(InfoOrder aggregate, EntityDiff<InfoOrder, OrderId> diff) {
-        // 主单实体是否有变化
-        if (diff.getDiffType() == DiffType.Modified) {
-            InfoOrderDO orderDO = orderConverter.entityToData(aggregate);
-            orderMapper.updateByPrimaryKey(orderDO);
-        }
+        exec.execute(() -> {
+            // 主单实体是否有变化
+            if (diff.getDiffType() == DiffType.Modified) {
+                InfoOrderDO orderDO = orderConverter.entityToData(aggregate);
+                orderMapper.updateByPrimaryKey(orderDO);
+            }
 
-        // 子单列表依次判断是否有变化
-        Diff<InfoOrderItem, OrderItemId> itemsDiff = diff.getDiff("items");
-        if (itemsDiff instanceof ListDiff) {
-            List<Diff<InfoOrderItem, OrderItemId>> itemListDiff =
-                    ((ListDiff<InfoOrderItem, OrderItemId>) itemsDiff).getList();
-            for (Diff<InfoOrderItem, OrderItemId> itemDiff : itemListDiff) {
-                EntityDiff<InfoOrderItem, OrderItemId> entityItemDiff =
-                        (EntityDiff<InfoOrderItem, OrderItemId>) itemDiff;
-                if (entityItemDiff.getDiffType() == DiffType.Removed) {
-                    InfoOrderItem item = entityItemDiff.getOldValue();
-                    InfoOrderItemDO itemDO = orderItemConverter.entityToData(item);
-                    orderItemMapper.deleteByPrimaryKey(itemDO.getOrderItemId());
-                }
-                if (entityItemDiff.getDiffType() == DiffType.Added) {
-                    InfoOrderItem item = entityItemDiff.getNewValue();
-                    InfoOrderItemDO itemDO = orderItemConverter.entityToData(item);
-                    orderItemMapper.insert(itemDO);
-                }
-                if (entityItemDiff.getDiffType() == DiffType.Modified) {
-                    InfoOrderItem item = entityItemDiff.getNewValue();
-                    InfoOrderItemDO itemDO = orderItemConverter.entityToData(item);
-                    orderItemMapper.updateByPrimaryKey(itemDO);
+            // 子单列表依次判断是否有变化
+            Diff<InfoOrderItem, OrderItemId> itemsDiff = diff.getDiff("items");
+            if (itemsDiff instanceof ListDiff) {
+                List<Diff<InfoOrderItem, OrderItemId>> itemListDiff =
+                        ((ListDiff<InfoOrderItem, OrderItemId>) itemsDiff).getList();
+                for (Diff<InfoOrderItem, OrderItemId> itemDiff : itemListDiff) {
+                    EntityDiff<InfoOrderItem, OrderItemId> entityItemDiff =
+                            (EntityDiff<InfoOrderItem, OrderItemId>) itemDiff;
+                    if (entityItemDiff.getDiffType() == DiffType.Removed) {
+                        InfoOrderItem item = entityItemDiff.getOldValue();
+                        InfoOrderItemDO itemDO = orderItemConverter.entityToData(item);
+                        orderItemMapper.deleteByPrimaryKey(itemDO.getOrderItemId());
+                    }
+                    if (entityItemDiff.getDiffType() == DiffType.Added) {
+                        InfoOrderItem item = entityItemDiff.getNewValue();
+                        InfoOrderItemDO itemDO = orderItemConverter.entityToData(item);
+                        orderItemMapper.insertSelective(itemDO);
+                    }
+                    if (entityItemDiff.getDiffType() == DiffType.Modified) {
+                        InfoOrderItem item = entityItemDiff.getNewValue();
+                        InfoOrderItemDO itemDO = orderItemConverter.entityToData(item);
+                        orderItemMapper.updateByPrimaryKey(itemDO);
+                    }
                 }
             }
-        }
+        });
     }
 
     @Override

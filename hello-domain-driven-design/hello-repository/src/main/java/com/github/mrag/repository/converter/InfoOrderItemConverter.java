@@ -16,6 +16,7 @@ public interface InfoOrderItemConverter extends NullableOperation {
     @Mapping(target = "orderItemId", source = "orderItemId.id")
     @Mapping(target = "orderId", source = "orderId.id")
     @Mapping(target = "itemId", source = "item.id")
+    @Mapping(target = "price", source = "item.itemPrice.amount")
     InfoOrderItemDO entityToData(InfoOrderItem entity);
 
     @Mapping(target = "orderItemId", expression = "java(nullableSet(OrderItemId.class, data.getOrderItemId()))")

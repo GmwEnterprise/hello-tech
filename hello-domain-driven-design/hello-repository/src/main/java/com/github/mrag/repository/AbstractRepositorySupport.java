@@ -25,7 +25,7 @@ public abstract class AbstractRepositorySupport<T extends Aggregate<ID>, ID exte
     }
 
     /**
-     * 子类repository实现
+     * 子类repository实现，应保证方法调用完成后aggregate已存在主键
      */
     protected abstract void onInsert(T aggregate);
 
@@ -55,13 +55,18 @@ public abstract class AbstractRepositorySupport<T extends Aggregate<ID>, ID exte
     }
 
     @Override
-    public T find(@NonNull ID id) {
+    public T findAndAttach(@NonNull ID id) {
         T aggregate = onSelect(id);
         if (aggregate != null) {
             // 让查询出来的对象被追踪
             attach(aggregate);
         }
         return aggregate;
+    }
+
+    @Override
+    public T find(ID id) {
+        return onSelect(id);
     }
 
     @Override
@@ -90,5 +95,25 @@ public abstract class AbstractRepositorySupport<T extends Aggregate<ID>, ID exte
         // 更新
         this.onUpdate(aggregate, diff);
         aggregateManager.merge(aggregate);
+    }
+
+    @Override
+    public void saveAndDetach(@NonNull T aggregate) {
+        // 没有ID则直接插入
+        if (aggregate.getId() == null) {
+            // 如果表设计没有添加自增主键，那么应在onInsert方法中生成主键
+            onInsert(aggregate);
+            return;
+        }
+
+        // diff
+        EntityDiff<T, ID> diff = aggregateManager.detectChanges(aggregate);
+        aggregateManager.detach(aggregate);
+        if (DiffUtils.isEmpty(diff)) {
+            return;
+        }
+
+        // 更新
+        this.onUpdate(aggregate, diff);
     }
 }

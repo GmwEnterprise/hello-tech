@@ -2,10 +2,11 @@ package com.github.mrag.app;
 
 import com.github.mrag.app.dto.OrderSubmitDTO;
 import com.github.mrag.app.dto.OrderUpdateDTO;
+import com.github.mrag.types.OrderId;
 
 public interface OrderHandleService {
 
-    void submitOrder(OrderSubmitDTO submitDTO);
+    OrderId submitOrder(OrderSubmitDTO submitDTO);
 
     void updateOrder(OrderUpdateDTO submitDTO);
 }

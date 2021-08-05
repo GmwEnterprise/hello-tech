@@ -15,6 +15,11 @@ public interface BaseRepository<T extends Aggregate<ID>, ID extends Identifier<?
     /**
      * 查询aggregate，并设置对其追踪
      */
+    T findAndAttach(ID id);
+
+    /**
+     * 查询aggregate，并设置对其追踪
+     */
     T find(ID id);
 
     /**
@@ -26,4 +31,9 @@ public interface BaseRepository<T extends Aggregate<ID>, ID extends Identifier<?
      * 保存aggregate，重新设置对其追踪
      */
     void save(T aggregate);
+
+    /**
+     * 保存aggregate，重新设置对其追踪
+     */
+    void saveAndDetach(T aggregate);
 }

@@ -89,7 +89,7 @@ public final class ReflectUtils {
     }
 
     public static <R> R newInstance(@NonNull Class<R> rtype, @NonNull Object[] params) {
-        Class<?>[] paramTypes = (Class<?>[]) Arrays.stream(params).map(Object::getClass).toArray();
+        Class<?>[] paramTypes = Arrays.stream(params).map(Object::getClass).toArray(Class<?>[]::new);
         Constructor<R> constructor;
         try {
             constructor = rtype.getConstructor(paramTypes);
