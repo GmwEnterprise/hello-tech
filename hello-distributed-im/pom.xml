@@ -9,6 +9,10 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>dim-infrastructure</module>
+        <module>dim-domain</module>
+        <module>dim-common</module>
+        <module>dim-repository</module>
+        <module>dim-webentry</module>
     </modules>
     <packaging>pom</packaging>
     <description>分布式IM，Java实现 (掘金小册教程)</description>
