@@ -3,6 +3,7 @@ package com.github.mrag.common.utils;
 import com.github.mrag.common.DomainPrimitive;
 import com.github.mrag.common.Identifier;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public final class CommonUtils {
@@ -51,6 +52,6 @@ public final class CommonUtils {
     }
 
     public static boolean everyItemInArrayIsNull(Object[] constructorParams) {
-        return false;
+        return Arrays.stream(constructorParams).allMatch(Objects::isNull);
     }
 }

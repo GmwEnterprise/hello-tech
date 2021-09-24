@@ -88,13 +88,15 @@ public final class ReflectUtils {
         }
     }
 
-    public static <R> R newInstance(@NonNull Class<R> rtype, @NonNull Object[] params) {
-        Class<?>[] paramTypes = Arrays.stream(params).map(Object::getClass).toArray(Class<?>[]::new);
+    public static <R> R newInstance(@NonNull Class<R> rtype, @NonNull Object[] constructorParams) {
+        Class<?>[] paramTypes = Arrays.stream(constructorParams)
+                                      .map(Object::getClass)
+                                      .toArray(Class<?>[]::new);
         Constructor<R> constructor;
         try {
             constructor = rtype.getConstructor(paramTypes);
             constructor.setAccessible(true);
-            return constructor.newInstance(params);
+            return constructor.newInstance(constructorParams);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
