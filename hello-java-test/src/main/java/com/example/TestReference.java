@@ -14,6 +14,7 @@ public class TestReference {
     }
 
     public static void main(String[] args) {
+
         WeakReference<String> weakStr = new WeakReference<>("HELLO WORLD");
         WeakReference<String> weakRef = new WeakReference<>(String.format("%s", "hello world"));
         WeakReference<TestReference> weak = new WeakReference<>(new TestReference("FINALIZE"));
